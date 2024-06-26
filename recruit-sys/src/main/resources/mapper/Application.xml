@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.ApplicationDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.ApplicationEntity" id="applicationMap">
+        <result property="companynumber" column="companynumber"/>
+        <result property="companyname" column="companyname"/>
+        <result property="personincharge" column="personincharge"/>
+        <result property="contactphone" column="contactphone"/>
+        <result property="position" column="position"/>
+        <result property="username" column="username"/>
+        <result property="fullname" column="fullname"/>
+        <result property="phone" column="phone"/>
+        <result property="resume" column="resume"/>
+        <result property="ifaudit" column="ifaudit"/>
+        <result property="auditresponse" column="auditresponse"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.ApplicationVO" >
+		SELECT * FROM application  application
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.ApplicationVO" >
+		SELECT  application.* FROM application  application
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.ApplicationView" >
+
+		SELECT  application.* FROM application  application
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.ApplicationView" >
+		SELECT * FROM application  application <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+</mapper>

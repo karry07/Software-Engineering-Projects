@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/x-icon/agricul.png">
+    <link rel="stylesheet" href="../../assets/css/relys/animate.css">
+    <link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+    <link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/style.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style type="text/css">
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: radial-gradient(circle at center, #f6fdfa, #f8faf8);
+            font-size: 16px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .product-details {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .detail-image {
+            flex: 1;
+            width: 300px;
+            padding: 20px;
+        }
+
+        .detail-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-info {
+            flex: 2;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            margin-left: 20px;
+        }
+
+        .detail-info h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .detail-info h4 {
+            font-size: 18px;
+            color: #555;
+            margin-top: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .detail-info p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .thumbs-up, .thumbs-down {
+            margin-right: 20px;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .thumbs-up {
+            background-color: #82d782;
+        }
+
+        .thumbs-down {
+            background-color: #df8383;
+        }
+
+        .form {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .form button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .form button:hover {
+            background-color: #0056b3;
+        }
+
+        .review ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .review ul li {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .review .client-review textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .review .client-review button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .section-header {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .section-header h4 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .section-header ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+        }
+
+        .section-header ul li {
+            margin: 0 10px;
+        }
+
+        .section-header ul li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .section-header ul li a.active {
+            font-weight: 700;
+        }
+
+        .mapUI {
+            overflow: hidden;
+            z-index: 9999;
+        .mapUI-describe {
+            background: #0000005e;
+            color: white !important;
+            padding: 5px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 5px;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 0;
+            transition: rgba,width .5s;
+        &:hover {
+             background: rgba(0, 0, 0, 0.7);
+         }
+
+        >div {
+            margin-bottom: 20px;
+        >span {
+            display: inline-block;
+        }
+        >span:nth-child(1){
+            width: 30%;
+            text-align: left;
+        }
+        >span:nth-child(2){
+            width: 70%;
+            text-align: right;
+        // color: black;
+        }
+        }
+        .searchList {
+            border: 1px solid black;
+            height: 200px;
+            overflow: auto;
+
+        div {
+            margin: 10px 0;
+            padding: 10px 0;
+            text-align: center;
+            color: black;
+            font-size: 16px;
+        }
+        div:hover {
+            background-color: #0000002b;
+        }
+        div::-webkit-scrollbar {
+            width: 2px !important;
+        }
+        }
+        }
+        .el-dialog {
+            margin-top: 10vh !important;
+            width: 80% !important;
+            font-size: 25px;
+        }
+        ::v-deep .el-dialog__header {
+            display: none;
+        }
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <section class="page-header bg_img padding-tb">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="page-header-content-area">
+                <h4 class="ph-title">招聘信息详情</h4>
+                <ul class="agri-ul">
+                    <li><a href="../../index.html">首页</a></li>
+                    <li><a class="active">招聘信息详情</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="shop-single padding-tb">
+        <div class="container">
+            <div class="product-details">
+                <div class="detail-info">
+                    <h2>{{detail.position}}</h2>
+                    <h4>企业信息</h4>
+                    <table>
+                        <tr>
+                            <td><span style="font-weight: bold;">企业编号：</span></td>
+                            <td>{{detail.companynumber}}</td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-weight: bold;">企业名称：</span></td>
+                            <td>{{detail.companyname}}</td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-weight: bold;">负责人：</span></td>
+                            <td>{{detail.personincharge}}</td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-weight: bold;">联系电话：</span></td>
+                            <td>{{detail.contactphone}}</td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-weight: bold;">查看地图：</span></td>
+                            <td>
+                                <el-button type="success" plain icon="el-icon-map-location" class="mini"
+                                           @click="showMap(detail.companyname)">查看地图
+                                </el-button>
+                            </td>
+                        </tr>
+                    </table>
+                    <h4>招聘信息</h4>
+                    <p><span style="font-weight: bold;">招聘人数：</span>{{detail.recruitnum}}</p>
+                    <p><span style="font-weight: bold;">岗位类别：</span>{{detail.jobcategory}}</p>
+                    <p><span style="font-weight: bold;">学历要求：</span>{{detail.education}}</p>
+                    <p><span style="font-weight: bold;">岗位要求：</span>{{detail.demand}}</p>
+                    <div class="form" style="display: flex; justify-content: center; align-items: center;">
+                        <button v-if="!isStored" @click="onStoreTap" style="background-color: #27c6f6;"><i
+                                class="fas fa-star"></i> 收藏
+                        </button>
+                        <button v-else @click="deleteStore" style="background-color: #27c6f6;"><i
+                                class="fas fa-star"></i>取消收藏
+                        </button>
+                        <!--                        <button  @click="onStoreTap" style="background-color: #27c6f6;"><i class="fas fa-star"></i> 收藏</button>-->
+                        <button @click="onCrossTap('application')"><i class="fas fa-file-alt"></i> 申请</button>
+                    </div>
+                    <div class="rating"
+                         style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                        <span class="thumbs-up" @click="onThumbsUp(1)"><i
+                                class="fas fa-thumbs-up"></i> 点赞 :{{detail.thumbsupnum}}</span>
+                        <span class="thumbs-down" @click="onThumbsUp(2)"><i
+                                class="fas fa-thumbs-down"></i> 点踩 :{{detail.crazilynum}}</span>
+                    </div>
+                </div>
+                <div class="detail-image">
+                    <div class="swiper-container gallery-top">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" v-for="(item, i) in swiperList" :key="i">
+                                <img :src="item" alt="shop-single">
+                            </div>
+                        </div>
+                        <div class="shop-navigation d-flex flex-wrap"
+                             style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+                            <div class="shop-nav shop-slider-prev"><i class="icofont-simple-left"></i></div>
+                            <div class="shop-nav shop-slider-next"><i class="icofont-simple-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review">
+                <ul class="agri-ul review-nav">
+                    <li class="desc active" data-target="description-show">详情</li>
+                    <li :class="['rev', !hsdetail ? 'active' : '']" data-target="review-content-show">评论
+                        {{comments.length}}
+                    </li>
+                </ul>
+                <div :class="['review-content', hsdetail ? 'description-show' : 'review-content-show']">
+                    <div class="description" v-html="detail.duty"></div>
+                    <div class="review-showing">
+                        <ul class="agri-ul content">
+                            <li v-for="(item, i) in comments" :key="i">
+                                <div class="post-thumb">
+                                    <img src="../../assets/images/commentsImage.png" alt="shop">
+                                </div>
+                                <div class="post-content">
+                                    <div class="entry-meta">
+                                        <div class="posted-on">
+                                            <p>{{ item.username }}&nbsp;&nbsp;&nbsp;&nbsp;{{ item.addtime }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="entry-content">
+                                        <p>{{item.content}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="client-review">
+                            <div class="review-form">
+                                <div class="review-title">
+                                    <h5>您的评论</h5>
+                                </div>
+                                <form @submit.prevent="onCommentTap" class="row">
+                                    <div class="col-md-12 col-12">
+                                        <textarea v-model="comment" rows="8" placeholder="请填写评论"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="defult-btn" type="submit">提交</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <el-dialog
+            :visible.sync="outMap"
+            append-to-body
+            class="mapUI">
+        <!-- 地图 -->
+        <div>
+            <div id="container" style="height:660px;"></div>
+        </div>
+        <div class="mapUI-describe">
+            <!-- <div>
+              <span>当前坐标:</span>
+              <span>{{mapData.point}}</span>
+            </div> -->
+            <div>
+                <span>企业名称:</span>
+                <span>{{ mapcompanyname }}</span>
+            </div>
+            <div>
+                <span>省份:</span>
+                <span>{{mapData.city}}</span>
+            </div>
+            <div>
+                <span>目的地:</span>
+                <span>{{mapData.district}}</span>
+            </div>
+            <div>
+                <span>具体位置:</span>
+                <span>{{ mapData.address }}</span>
+            </div>
+            <div>
+                <span>退出地图预览</span>
+                <span>
+						<el-button type="primary" round @click="outMap=false">退出</el-button>
+						</span>
+            </div>
+            <div>你可能想找:</div>
+            <div v-if="mapData.searchList" class="searchList">
+                <div v-for="(item,index) in mapData.searchList" :key="index" @click="mapcompanynamemohu = item.title"
+                     :title="item.address" >
+                    <span @click="showMap(mapcompanynamemohu)">({{item.address.substring(0,2)}}){{item.title}}</span>
+                </div>
+            </div>
+        </div>
+    </el-dialog>
+
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/fontawesome.min.js"></script>
+<script src="../../assets/js/relys/waypoints.min.js"></script>
+<script src="../../assets/js/relys/bootstrap.min.js"></script>
+<script src="../../assets/js/relys/wow.min.js"></script>
+<script src="../../assets/js/relys/jquery.countdown.min.js"></script>
+<script src="../../assets/js/relys/jquery.counterup.min.js"></script>
+<script src="../../assets/js/relys/isotope.pkgd.min.js"></script>
+<script src="../../assets/js/relys/lightcase.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--<script src="https://cdn.bootcdn.net/ajax/libs/jQuery-JSONP/2.4.0/jquery.jsonp.min.js"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+<script src="../../assets/js/relys/http_cdn.bootcdn.net_ajax_libs_jQuery-JSONP_2.4.0_jquery.jsonp.js"></script>
+<div id="script"></div>
+</body>
+<!--<script type="text/javascript">-->
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            outMap: false,
+            mapData: {
+                point: "", city: null, district: null, searchList: null, address: null
+            },
+            mapcompanyname: '',
+            mapcompanynamemohu: '',
+            id: "",
+            detail: null,
+            swiperList: [],
+            curImg: '',
+            hsdetail: false,
+            comments: [],
+            comment: "",
+            buttons: [],
+            isStored: false,
+            storeupId: null,
+        },
+        async created() {
+            var frontmenus = JSON.parse(localStorage.getItem("daohangmenus"))
+            if (typeof frontmenus == "object") {
+                frontmenus.forEach(item => {
+                    if (item.menutable == "employment") {
+                        this.buttons = item.buttons
+                    }
+                })
+            }
+            var id = getParam('id')
+            this.id = id
+            this.hsdetail = true
+            await this.getDetail(id)
+            var user = await this.getSession()
+            var data = {
+                refid: this.detail.id,
+                tablename: "employment",
+                userid: user.id
+            }
+            this.checkStoreStatus(data)
+            this.getComments()
+            var scripts = [
+                "../../assets/js/relys/swiper.min.js",
+                "../../assets/js/relys/functions.js"
+            ]
+            setTimeout(() => {
+                scripts.forEach(ele => {
+                    var new_element = document.createElement("script");
+                    new_element.setAttribute("type", "text/javascript");
+                    new_element.setAttribute("src", ele);
+                    $('#script').append(new_element);
+                })
+            }, 500)
+        },
+        mounted() {
+            this.loadScript();
+        },
+        methods: {
+            //加载Script
+            loadScript() {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                // script.src = 'https://map.qq.com/api/js?v=2.exp&key=K35BZ-MUJYJ-5NKFK-DT5K2-CWTQS-AHF6B'; // 请替换为你的API密钥
+                script.src = 'https://map.qq.com/api/js?v=2.exp&key=K35BZ-MUJYJ-5NKFK-DT5K2-CWTQS-AHF6B&callback=initMap';
+                document.body.appendChild(script);
+            },
+            //获取信息
+            getSession() {
+                return new Promise((resolve) => {
+                    var tablename = localStorage.getItem("sessionTable")
+                    session(`${tablename}`, (data) => {
+                        if (data && data.code == 0) {
+                            resolve(data.data)
+                        }
+                    })
+                })
+            },
+            //获取id的详细信息
+            getDetail(id) {
+                return new Promise((resolve) => {
+                    detailFun('employment', id, (res) => {
+                        this.detail = res.data
+                        this.$nextTick(() => {
+                            this.swiperList = []
+                            var arr = this.detail.picture.split(',')
+                            arr.forEach(item => {
+                                this.swiperList.push(item)
+                            })
+                            this.curImg = this.swiperList[0]
+                            resolve(res)
+                        })
+                    })
+                })
+            },
+            //点击申请按钮
+            onCrossTap(tablename) {
+                localStorage.setItem("crossObj", JSON.stringify(this.detail))
+                window.location.href = `../${tablename}/add.html?tablename=employment`
+            },
+            //点击收藏按钮
+            async onStoreTap() {
+                var user = await this.getSession()
+                var data = {
+                    refid: this.detail.id,
+                    tablename: "employment",
+                    userid: user.id,
+                    name: "",
+                    picture: ""
+                }
+                data.name = this.detail.position
+                data.picture = this.detail.picture
+                storeUpAdd("employment", data, (res) => {
+                    if (res && res.code == 0) {
+                        alert("收藏成功")
+                        //收藏成功后重新获取收藏状态
+                        this.checkStoreStatus(data)
+                    }
+                })
+            },
+            //点击点赞按钮
+            onThumbsUp(type) {
+                thumbsUp("employment", this.detail.id, type, (res) => {
+                    if (res && res.code == 0) {
+                        if (type == 1) {
+                            alert("点赞成功")
+                            this.getDetail(this.id)
+                        } else {
+                            alert("踩成功")
+                            this.getDetail(this.id)
+                        }
+                    }
+                })
+            },
+            //获取收藏状态
+            checkStoreStatus(data) {
+                checkStoreStatus("employment", data, (res) => {
+                    if (res && res.code == 0) {
+                        this.isStored = true;
+                        this.storeupId = res.data;
+                        console.log("isStored" + this.isStored)
+                    } else {
+                        this.isStored = false;
+                        this.storeupId = null;
+                        console.log("isStored" + this.isStored)
+                    }
+                })
+            },
+            //删除收藏
+            deleteStore() {
+                if (!this.storeupId) {
+                    alert("没有找到收藏记录");
+                    return;
+                }
+                storeUpDelete(this.storeupId, (res) => {
+                    if (res && res.code == 0) {
+                        this.isStored = false;
+                        this.storeupId = null;
+                        alert("取消收藏成功");
+                    } else {
+                        alert("取消收藏失败");
+                    }
+                });
+            },
+            //获取评论
+            getComments() {
+                commentList("job_seeker_comments", this.detail.id, (res) => {
+                    if (res && res.code == 0) {
+                        this.comments = res.data.list
+                    }
+                })
+            },
+            //点击评论按钮
+            async onCommentTap() {
+                var user = await this.getSession()
+                if (user) {
+                    var data = {
+                        refid: this.detail.id,
+                        content: this.comment,
+                        userid: user.id,
+                        username: user.fullname,
+                    }
+                    addComment("job_seeker_comments", data, (res) => {
+                        if (res && res.code == 0) {
+                            alert("评论成功")
+                            this.getComments()
+                        }
+                    })
+                } else {
+                    alert("评论失败")
+                }
+            },
+            // 查看地图
+            showMap(companyName) {
+                // 显示地图组件,优先执行,保证地图组件能够正常创建
+                this.outMap = true;
+                this.mapcompanyname = companyName;
+                this.searchMap()
+            },
+            //搜索地图
+            searchMap() {
+                this.$message.success("正在获取地图数据");
+                let url = "https://apis.map.qq.com/ws/place/v1/suggestion";
+                let __this = this;
+
+                $.ajax({
+                    url: url,
+                    dataType: "jsonp",
+                    data: {
+                        key: "K35BZ-MUJYJ-5NKFK-DT5K2-CWTQS-AHF6B",
+                        keyword: this.mapcompanyname,
+                        // region: "深圳",
+                        output: "jsonp"
+                    },
+                    success: function(res) {
+                        res.data.forEach((item) => {
+                            item.value = item.title; // 因为element的远程搜索只能识别value所以需要对返回的数据进行一下处理
+                        });
+                        console.log("res.data", res.data);
+                        __this.mapData.searchList = res.data;
+                        if (res.data[0]) {
+                            __this.mapData.address = res.data[0].address;
+                            __this.mapData.city = res.data[0].province;
+                            __this.mapData.district = res.data[0].city + "/" + res.data[0].district;
+                            __this.createMap(res.data[0].location.lat, res.data[0].location.lng);
+                        }
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+            },
+            // 生成地图数据
+            createMap(w, h) {
+                //步骤：定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
+                //自己设置地图中心点
+                let qq = window.qq;
+                console.log('qq:', qq.maps)
+                var myLatlng = new qq.maps.LatLng(w, h);
+                this.mapData.point = w + "," + h;
+                //定义工厂模式函数
+                var myOptions = {
+                    zoom: 15,               //设置地图缩放级别
+                    center: myLatlng,      //设置中心点样式
+                    mapTypeId: qq.maps.MapTypeId.ROADMAP  //设置地图样式详情参见MapType
+                }
+                //获取父元素
+                let content = document.getElementById("container");
+                //循环删除子元素，一直删除第一个子元素直到没有子元素即为清空
+                while (content.hasChildNodes()) {
+                    content.removeChild(content.firstChild);
+                }
+                //获取dom元素添加地图信息
+                var map = new qq.maps.Map(document.getElementById("container"), myOptions);
+                //给定位的位置添加图片标注
+                var marker = new qq.maps.Marker({
+                    position: myLatlng,
+                    map: map
+                });
+                //给定位的位置添加文本标注
+                var marker1 = new qq.maps.Label({
+                    position: myLatlng,
+                    map: map,
+                    content: this.form.companyname
+                });
+                this.$message.success("获取地图数据成功!")
+            },
+        }
+    })
+</script>
+</html>

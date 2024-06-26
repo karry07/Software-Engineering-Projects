@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.EmploymentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.EmploymentEntity" id="employmentMap">
+        <result property="companynumber" column="companynumber"/>
+        <result property="companyname" column="companyname"/>
+        <result property="personincharge" column="personincharge"/>
+        <result property="contactphone" column="contactphone"/>
+        <result property="position" column="position"/>
+        <result property="recruitnum" column="recruitnum"/>
+        <result property="jobcategory" column="jobcategory"/>
+        <result property="education" column="education"/>
+        <result property="picture" column="picture"/>
+        <result property="demand" column="demand"/>
+        <result property="duty" column="duty"/>
+        <result property="thumbsupnum" column="thumbsupnum"/>
+        <result property="crazilynum" column="crazilynum"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.EmploymentVO" >
+		SELECT * FROM employment  employment
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.EmploymentVO" >
+		SELECT  employment.* FROM employment  employment
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.EmploymentView" >
+
+		SELECT  employment.* FROM employment  employment
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.EmploymentView" >
+		SELECT * FROM employment  employment <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+</mapper>

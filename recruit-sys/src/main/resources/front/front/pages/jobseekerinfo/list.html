@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>列表</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+		  rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="../../assetsimages/x-icon/agricul.png">
+	<link rel="stylesheet" href="../../assets/css/relys/animate.css">
+	<link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+	<link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/style.css">
+	<style type="text/css">
+		.container1 {
+			background: radial-gradient(circle at center, #f6fdfa, #f8faf8);
+		}
+
+		.product-item {
+			margin-bottom: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.product-item:hover {
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+		}
+
+		.img-box img {
+			width: 300px; /* 设置你想要的宽度 */
+			height: 200px; /* 设置你想要的高度 */
+			object-fit: cover; /* 保持图片的比例 */
+			border-radius: 10px 10px 0 0;
+		}
+
+		.product-content {
+			padding: 20px;
+		}
+
+		.product-content h6 {
+			margin: 0;
+		}
+
+		.product-content h6 a {
+			color: #333;
+			transition: color 0.3s ease;
+		}
+
+		.product-content h6 a:hover {
+			color: #007BFF;
+		}
+
+		.widget.widget-search,
+		.widget.widget-category {
+			margin-bottom: 30px;
+			padding: 20px;
+			background-color: #f9f9f9;
+			border-radius: 10px;
+		}
+
+		.widget-header h5 {
+			margin: 0;
+			font-size: 18px;
+			color: #09bd71;
+		}
+
+		.search-wrapper {
+			margin-bottom: 20px;
+			position: relative;
+			display: flex;
+			align-items: center;
+			background: linear-gradient(135deg, #71b7e6, #9b59b6);
+			border-radius: 30px;
+			padding: 5px 10px;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.search-wrapper input {
+			flex-grow: 1;
+			padding: 10px 15px;
+			border: none;
+			border-radius: 20px;
+			outline: none;
+			background: #fff;
+			margin-right: 10px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.search-wrapper button {
+			background: #58a7e7;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 20px;
+			cursor: pointer;
+			transition: background 0.3s;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.search-wrapper button i {
+			margin-right: 5px;
+		}
+
+		.search-wrapper button:hover {
+			background: #0f5b85;
+		}
+
+		.widget.widget-category {
+			background-color: #fff;
+			border: 1px solid #ddd;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.widget.widget-category .widget-header h5 {
+			padding-bottom: 10px;
+			border-bottom: 1px solid #eee;
+			margin-bottom: 20px;
+		}
+
+		.widget.widget-category .widget-wrapper ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.widget.widget-category .widget-wrapper ul li {
+			margin-bottom: 10px;
+		}
+
+		.widget.widget-category .widget-wrapper ul li a {
+			display: block;
+			padding: 10px;
+			background: #f7f7f7;
+			border-radius: 5px;
+			text-decoration: none;
+			color: #333;
+			transition: background 0.3s;
+		}
+
+		.widget.widget-category .widget-wrapper ul li a:hover {
+			background: #58a7e7;
+			color: #fff;
+		}
+
+		.btn-primary1 {
+			background-color: #58a7e7;
+			border: none;
+			color: white;
+			padding: 12px 24px;
+			text-align: center;
+			text-decoration: none;
+			display: block;
+			font-size: 16px;
+			border-radius: 4px;
+			transition: background-color 0.3s;
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+			margin-top: 20px;
+		}
+
+		.btn-primary1::before {
+			content: '\f067';
+			font-family: "Font Awesome 5 Free";
+			font-weight: 900;
+			margin-right: 10px;
+		}
+
+		.btn-primary1:hover {
+			background-color: #0f5b85;
+		}
+
+		.btn-primary1 .icon {
+			font-size: 18px;
+			margin-right: 8px;
+		}
+
+		.btn-primary1:hover .icon {
+			animation: bounce 0.3s ease-in-out infinite alternate;
+		}
+
+		@keyframes bounce {
+			from {
+				transform: translateY(0);
+			}
+			to {
+				transform: translateY(-3px);
+			}
+		}
+
+		.search-wrapper button {
+			background: #58a7e7;
+			border: none;
+			color: #1f5927;
+			padding: 10px 20px;
+			border-radius: 20px;
+			cursor: pointer;
+			transition: background 0.3s;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			letter-spacing: 1px;
+			font-size: 14px;
+		}
+
+		.paginations {
+			background: #e0e8ef;
+			border-radius: 5px;
+			padding: 10px;
+		}
+
+		.paginations ul {
+			display: flex;
+			justify-content: center;
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.paginations ul li {
+			margin: 0 5px;
+		}
+
+		.paginations ul li a {
+			display: block;
+			padding: 5px 10px;
+			background: #f5e2eb;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 3px;
+			transition: background 0.3s;
+		}
+
+		.paginations ul li a:hover {
+			background: #e1d4f6;
+		}
+
+		.modal {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: fixed;
+			z-index: 1000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			max-width: 500px;
+			border-radius: 10px;
+		}
+
+		.close {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.modal-content h4 {
+			margin: 0 0 15px;
+		}
+
+		.modal-content ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		.modal-content ul li {
+			margin-bottom: 10px;
+		}
+
+		.modal-content ul li a {
+			text-decoration: none;
+			color: #007BFF;
+			transition: color 0.3s ease;
+		}
+
+		.modal-content ul li a:hover {
+			color: #0056b3;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!-- Page Header Section Start Here -->
+	<section class="page-header bg_img padding-tb">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="page-header-content-area">
+				<h4 class="ph-title">求职者信息列表</h4>
+				<ul class="agri-ul">
+					<li><a href="../../index.html">首页</a></li>
+					<li><a class="active">求职者信息列表</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!-- Page Header Section Ending Here -->
+	<!-- shop page Section Start Here -->
+	<div class="shop-page padding-tb">
+		<div class="container">
+			<div class="section-wrapper">
+				<div class="row justify-content-center">
+					<div :class="group?'col-lg-9 col-12':'col-lg-12 col-12'">
+						<article>
+							<div class="shop-product-wrap grids row justify-content-center"style="justify-content: flex-start!important;">
+								<div class="col-lg-4 col-md-6 col-12" v-for="(item, i) in list" @click="onPageTap(`./detail.html?id=${item.id}`)">
+									<div class="product-item">
+										<div class="img-box">
+											<img :src="item.photo.split(',')[0]" alt="shope">
+										</div>
+										<div class="product-content">
+											<h6><a :href="`javascript: onPageTap('./detail.html?id=${item.id}')`">姓名:{{item.fullname}}</a></h6>
+											<h6><a :href="`javascript: onPageTap('./detail.html?id=${item.id}')`">联系电话:{{item.phone}}</a></h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="paginations">
+								<ul class="agri-ul d-flex flex-wrap justify-content-center" id="paginator">
+								</ul>
+							</div>
+						</article>
+					</div>
+					<div class="col-lg-3 col-md-5 col-12">
+						<aside>
+							<div class="widget widget-search">
+								<div class="widget-header">
+									<h5 style="color: #05d3c7;">关键词搜索</h5>
+								</div>
+								<form @submit.prevent="searchcompanynameTap" class="search-wrapper">
+									<input v-model="username" type="text" name="s" placeholder="请输入用户名">
+									<button type="submit"><i class="fas fa-search"></i> 搜索</button>
+								</form>
+								<form @submit.prevent="searchcompanynameTap" class="search-wrapper">
+									<input v-model="fullname" type="text" name="s" placeholder="请输入姓名">
+									<button type="submit"><i class="fas fa-search"></i> 搜索</button>
+								</form>
+							</div>
+							<div class="widget widget-category">
+								<div class="widget-header">
+									<h5 style="color: #2b6ee7;">全部分类</h5>
+								</div>
+								<div class="widget-wrapper">
+									<ul class="agri-ul shop-menu">
+										<li>
+											<a>学历</a>
+											<ul class="agri-ul shop-submenu">
+												<li><a @click.prevent="listeducationinfoGroupTap('','-1')">全部</a></li>
+												<li v-for="(item, idx) in educationinfogrouplist" :key="idx"><a
+														@click.prevent="listeducationinfoGroupTap(item, idx)">{{item}}</a></li>
+											</ul>
+										</li>
+										<li>
+											<a>岗位类别</a>
+											<ul class="agri-ul shop-submenu">
+												<li><a @click.prevent="listjobcategoryGroupTap('','-1')">全部</a></li>
+												<li v-for="(item, idx) in jobcategorygrouplist" :key="idx"><a
+														@click.prevent="listjobcategoryGroupTap(item, idx)">{{item}}</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="widget widget-search" v-if="isGeneralUser">
+								<!-- 添加招聘信息 -->
+								<div class="widget-header">
+									<h5 style="color: #a50ad7;">添加求职者信息</h5>
+								</div>
+								<a href="./add.html" class="btn-primary1"><i class="icon"></i>添加求职者信息</a>
+								<!-- 下载简历模板 -->
+								<div class="widget-header" style="margin-top: 20px;">
+									<h5 style="color: #a50ad7;">下载简历模板</h5>
+								</div>
+								<button class="btn-primary1" @click="showResumeTemplates"><i class="icon"></i>下载简历模板</button>
+							</div>
+						</aside>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- shop page Section ENding Here -->
+	<!-- 模态框 -->
+	<div v-if="showDialog" class="modal" @click.self="hideResumeTemplates">
+		<div class="modal-content">
+			<span class="close" @click="hideResumeTemplates">&times;</span>
+			<h4>下载简历模板</h4>
+			<ul>
+				<li><a href="../../assets/template/模板1.docx" download>现代简约 模板</a></li>
+				<li><a href="../../assets/template/模板2.docx" download>经典传统 模板</a></li>
+				<li><a href="../../assets/template/模板3.docx" download>个性创意 模板</a></li>
+				<li><a href="../../assets/template/模板4.docx" download>悦动青春 模板</a></li>
+				<li><a href="../../assets/template/模板5.docx" download>简洁明了 模板</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/fontawesome.min.js"></script>
+<script src="../../assets/js/relys/bootstrap.min.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<script src="../../assets/js/relys/jq-paginator.min.js"></script>
+<div id="script"></div>
+</body>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			isCompanyInfoUser: false,//是否是企业用户
+			isGeneralUser: false,//是否是求职者用户
+			group: false,
+			cureducationinfogroupidx: '-1',
+			educationinfogrouplist: [],
+			curjobcategorygroupidx: '-1',
+			jobcategorygrouplist: [],
+			first: true,
+			list: [],
+			page: {
+				page: 1,
+				limit: 16,
+				total: 0
+			},
+			username: "",
+			searchname: '',
+			searchval: '',
+			fullname: '',
+			showDialog: false, // 控制对话框的显示
+		},
+		methods: {
+			searchGUusernameTap(){
+				this.page.page = 1
+				this.searchname = "username"
+				this.searchval = this.username
+				this.getList(this.searchname, this.searchval)
+			},
+			searchGUfullnameTap(){
+				this.page.page = 1
+				this.searchname = "fullname"
+				this.searchval = this.fullname
+				this.getList(this.searchname, this.searchval)
+			},
+			onPageTap(url) {
+				window.location.href = url;
+			},
+			getList(searchname, searchval) {
+				return new Promise((resolve) => {
+					goodsList('jobseekerinfo',this.page.page, this.page.limit, searchname, searchval, (res) => {
+						if (res.code == 0) {
+							this.list = res.data.list
+							resolve(res.data)
+						}
+					})
+				})
+			},
+			listeducationinfoGroupTap(item, index){
+				this.cureducationinfogroupidx = index
+				var searchname = 'education'
+				if(item){
+					this.searchname = searchname
+					this.searchval = item
+				}else{
+					this.searchname = ''
+					this.searchval = ''
+				}
+				console.log(this.searchname, this.searchval)
+				this.getList(this.searchname, this.searchval)
+			},
+			listjobcategoryGroupTap(item, index){
+				this.curjobcategorygroupidx = index
+				var searchname = 'jobcategory'
+				if(item){
+					this.searchname = searchname
+					this.searchval = item
+				}else{
+					this.searchname = ''
+					this.searchval = ''
+				}
+				console.log(this.searchname, this.searchval)
+				this.getList(this.searchname, this.searchval)
+			},
+			pageFun(data){
+				var that = this
+				$('#paginator').jqPaginator({
+					totalPages: data.totalPage,
+					visiblePages: 7,
+					currentPage: that.page.page,
+					prev: '<li class="d-none d-sm-block"><a href="javascript: pageFun()">&lt;</a></li>',
+					next: '<li class="d-none d-sm-block"><a href="javascript: pageFun()">&gt;</a></li>',
+					page: `<li class="d-none d-sm-block"><a href="javascript: pageFun()">{{page}}</a></li>`,
+					onPageChange: function(num, type) {
+						that.page.page = num
+					}
+				});
+			},
+			showResumeTemplates() {
+				this.showDialog = true;
+			},
+			hideResumeTemplates() {
+				this.showDialog = false;
+			}
+		},
+		async created() {
+			// 获取当前登录用户的角色
+			var role = localStorage.getItem("sessionTable");
+			// 检查角色是否为 "companyinfo"
+			this.isCompanyInfoUser = (role === "companyinfo");
+			// 检查角色是否为 "general"
+			this.isGeneralUser = (role === "generaluser");
+			setTimeout(() => {
+				var scripts = [
+					'../../assets/js/relys/wow.min.js',
+					'../../assets/js/relys/swiper.min.js',
+					'../../assets/js/relys/jquery.countdown.min.js',
+					'../../assets/js/relys/jquery.counterup.min.js',
+					'../../assets/js/relys/isotope.pkgd.min.js',
+					'../../assets/js/relys/lightcase.js',
+					'../../assets/js/relys/functions.js',
+				]
+				scripts.forEach(ele => {
+					var new_element = document.createElement("script");
+					new_element.setAttribute("type", "text/javascript");
+					new_element.setAttribute("src", ele); // 在这里引入了a.js
+					$('#script').append(new_element);
+				})
+			}, 500)
+			var search = getParam('search')
+			var searchname = 'fullName'
+
+			if(search){
+				this.searchname = searchname
+				this.searchval = search
+			}
+			var res = await this.getList(this.searchname, this.searchval)
+			this.pageFun(res)
+			this.group = true
+			getOption("educationInfo", "education", (data) => {
+				if (data && data.code === 0) {
+					this.educationinfogrouplist = data.data;
+				}
+			})
+			getOption("job_category", "jobcategory", (data) => {
+				if (data && data.code === 0) {
+					this.jobcategorygrouplist = data.data;
+				}
+			})
+		}
+	})
+
+	function onPageTap(url) {
+		window.location.href = url;
+	}
+
+	function pageFun(){
+		app.getList(false, false)
+	}
+</script>
+</html>

@@ -1,0 +1,373 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>boo02</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../assetsimages/x-icon/agricul.png">
+    <link rel="stylesheet" href="../../assets/css/relys/animate.css">
+    <link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+    <link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <style type="text/css">
+        /* 表单容器样式 */
+        .form-box {
+            padding-top: 50px; /* 顶部内边距 */
+            padding-bottom: 50px; /* 底部内边距 */
+            width: 100%;
+            background: linear-gradient(to bottom, #bbe8da, #f2faf4); /* 背景颜色渐变 */
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+        }
+
+        /* 表单内容样式 */
+        .form-box .form-content {
+            width: 60%;
+            height: auto;
+            background: #f7fff7; /* 背景颜色 */
+            padding: 40px 60px; /* 内边距 */
+            border-radius: 10px; /* 圆角 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 阴影 */
+            position: relative;
+        }
+
+        /* 关闭按钮样式 */
+        .form-box .form-content .close-btn {
+            position: absolute;
+            padding: 10px;
+            background: #ccc; /* 背景颜色 */
+            color: #444; /* 文字颜色 */
+            top: 20px;
+            right: 20px;
+            border-radius: 50%; /* 圆形按钮 */
+            cursor: pointer;
+        }
+
+        .form-box .form-content .close-btn:hover {
+            background: #b3b3b3; /* 悬停时背景颜色 */
+        }
+
+        /* 标题样式 */
+        .form-box .form-content h3 {
+            text-align: center; /* 文字居中 */
+            margin-bottom: 40px; /* 底部外边距 */
+            font-size: 1.5em; /* 字体大小 */
+            color: #333; /* 文字颜色 */
+        }
+
+        /* 输入项样式 */
+        .form-box .form-content .input-item {
+            margin-bottom: 20px; /* 底部外边距 */
+            display: flex;
+            align-items: center; /* 垂直居中 */
+        }
+
+        .form-box .form-content .input-item input,
+        .form-box .form-content .input-item select,
+        .form-box .form-content .input-item textarea {
+            flex: 1;
+            height: 40px; /* 高度 */
+            padding: 0 10px; /* 内边距 */
+            border: 1px solid #ddd; /* 边框 */
+            border-radius: 5px; /* 圆角 */
+            font-size: 14px; /* 字体大小 */
+            color: #333; /* 文字颜色 */
+        }
+
+        .form-box .form-content .input-item textarea {
+            height: 200px; /* 自动高度 */
+            min-height: 100px; /* 最小高度 */
+            resize: vertical; /* 允许垂直拉伸 */
+            width: 500px; /* 宽度 */
+        }
+
+        .form-box .form-content .input-item .input-name {
+            padding: 0;
+            width: 120px; /* 宽度 */
+            height: 40px; /* 高度 */
+            line-height: 40px; /* 行高 */
+            font-size: 14px; /* 字体大小 */
+            color: #333; /* 文字颜色 */
+            margin-right: 10px; /* 右外边距 */
+        }
+
+        /* 上传图片样式 */
+        .form-box .form-content .input-item img {
+            width: 100px; /* 宽度 */
+            height: 100px; /* 高度 */
+            border-radius: 5px; /* 圆角 */
+            margin-left: 20px; /* 左外边距 */
+            object-fit: cover; /* 保持比例 */
+            margin-top: 5px;
+        }
+
+        /* 提交按钮样式 */
+        .form-box .form-content button {
+            background: #a5c7ec; /* 背景颜色 */
+            color: #fff; /* 文字颜色 */
+            border: none;
+            width: 100%;
+            padding: 10px; /* 内边距 */
+            font-size: 16px; /* 字体大小 */
+            border-radius: 5px; /* 圆角 */
+            cursor: pointer;
+            margin-top: 5px; /* 顶部外边距 */
+        }
+
+        .form-box .form-content button:hover {
+            background: #3887de; /* 悬停时背景颜色 */
+        }
+
+        /* layui 上传图片样式 */
+        .layui-upload-img {
+            width: 120px; /* 宽度 */
+            height: 120px; /* 高度 */
+            border-radius: 5px; /* 圆角 */
+            object-fit: cover; /* 保持比例 */
+        }
+
+        #jianliupload-file {
+            line-height: 10px; /* 调整这个值以改变文本的垂直位置 */
+        }
+
+        .layui-form-label {
+            color: #565151; /* 文字颜色 */
+            font-size: 16px; /* 字体大小 */
+            line-height: 1.5; /* 行高 */
+            margin-right: 10px; /* 右外边距 */
+            padding: 0; /* 内边距 */
+            text-align: right; /* 文字右对齐 */
+            vertical-align: middle; /* 垂直居中对齐 */
+            box-sizing: border-box; /* 盒模型 */
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="form-box layui-form" lay-filter="layform">
+        <div class="form-control form-content">
+            <h3>应聘信息填写</h3>
+            <div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">企业编号</label>
+                    <div class="layui-input-block">
+                        <input v-model="detail.companynumber" type="text" name="title" lay-verify="title"
+                               autocomplete="off" placeholder="请输入企业编号" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">企业名称</label>
+                    <div class="layui-input-block">
+                        <input v-model="detail.companyname" type="text" name="title" lay-verify="title"
+                               autocomplete="off" placeholder="请输入企业名称" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">负责人</label>
+                    <div class="layui-input-block">
+                        <input v-model="detail.personincharge" type="text" name="title" lay-verify="title"
+                               autocomplete="off" placeholder="请输入负责人" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">联系电话</label>
+                    <div class="layui-input-block">
+                        <input v-model="detail.contactphone" type="text" name="title" lay-verify="title"
+                               autocomplete="off" placeholder="请输入联系电话" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">招聘岗位</label>
+                    <div class="layui-input-block">
+                        <input v-model="detail.position" type="text" name="title" lay-verify="title" autocomplete="off"
+                               placeholder="请输入招聘岗位" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input v-model="detail.username" type="text" name="title" lay-verify="title" autocomplete="off"
+                               placeholder="请输入用户名" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input v-model="detail.fullname" type="text" name="title" lay-verify="title" autocomplete="off"
+                               placeholder="请输入姓名" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话</label>
+                    <div class="layui-input-block">
+                        <input v-model="detail.phone" type="text" name="title" lay-verify="title" autocomplete="off"
+                               placeholder="请输入电话" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">简历</label>
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn" id="jianliupload-file">上传文件</button>
+                        <label v-if="detail.resume">{{detail.resume.split('upload/')[1]}}</label>
+                    </div>
+                </div>
+            </div>
+            <button style="margin-bottom: 20px;" type="button" class="btn btn-default" @click="onConfirmTap">提交
+            </button>
+        </div>
+    </div>
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/vue.min.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<script src="../../assets/js/relys/storage.js"></script>
+<script src="../../layui/layui.js"></script>
+<div id="script"></div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            crosstable: "",
+            crosstableobj: {},
+            detail: {
+                companynumber: "",
+                companyname: "",
+                personincharge: "",
+                contactphone: "",
+                position: "",
+                username: "",
+                fullname: "",
+                phone: "",
+                resume: "",
+                ifaudit: "",
+                auditresponse: "",
+            },
+        },
+        computed: {},
+        updated() {
+        },
+        async created() {
+            var id = getParam('id')
+            var tablename = getParam('tablename')
+            this.crosstable = tablename
+            if (tablename) {
+                var cross = JSON.parse(localStorage.getItem("crossObj"))
+                this.crosstableobj = cross
+                for (var key in cross) {
+                    if ("companynumber" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("companyname" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("personincharge" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("contactphone" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("position" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("username" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("fullname" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("phone" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("resume" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("ifaudit" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                    if ("auditresponse" == key) {
+                        this.detail[key] = cross[key]
+                    }
+                }
+            } else if (id) {
+                await this.getDetail(id, tablename)
+            }
+
+            // 获取用户信息
+            var user = localStorage.getItem("sessionTable")
+            session(`${user}`, (data) => {
+                if (data && data.code === 0) {
+                    var json = data.data;
+                    this.detail.username = json.username
+                    this.detail.fullname = json.fullname
+                    this.detail.phone = json.phone
+                }
+            })
+
+        },
+        methods: {
+            //提交
+            onConfirmTap() {
+                addFun("application", this.detail, (res) => {
+                    if (res && res.code == 0) {
+                        alert("提交成功")
+                        window.location.href = '../employment/list.html';
+                    }
+                })
+            },
+            //获取详细信息
+            getDetail(tablename, id) {
+                return new Promise((resolve) => {
+                    detailFun(tablename, id, (res) => {
+                        this.detail = res.data
+                        resolve(res)
+                    })
+                })
+            }
+        }
+    })
+    $(function () {
+        layui.use('upload', function () {
+            var $ = layui.jquery
+                , upload = layui.upload;
+            //指定允许上传的文件类型
+            upload.render({
+                elem: '#jianliupload-file'
+                , url: baseurl + "file/upload"
+                , headers: {
+                    Token: getStorage("Token")
+                }
+                , accept: 'file' //普通文件
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code > 0) {
+                        return layer.msg('上传失败');
+                    } else {
+                        app.detail.resume = baseurl + "upload/" + res.file
+                        return layer.msg('上传成功');
+
+                    }
+                }
+            });
+        });
+        layui.use(['form', 'layedit'], function () {
+            var form = layui.form,
+                layedit = layui.layedit,
+                $ = layui.jquery,
+                layer = layui.layer;
+
+        });
+    });
+</script>
+</body>
+</html>

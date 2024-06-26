@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>详情</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+		  rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="../../assetsimages/x-icon/agricul.png">
+	<link rel="stylesheet" href="../../assets/css/relys/animate.css">
+	<link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+	<link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/style.css">
+	<style type="text/css">
+		body {
+			font-family: 'Roboto', sans-serif;
+			background: radial-gradient(circle at center, #f6fdfa, #f8faf8);
+			font-size: 16px;
+		}
+
+		.container {
+			padding: 20px;
+		}
+
+		.product-details {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.detail-info {
+			flex: 2;
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			background-color: #fff;
+			margin-left: 20px;
+		}
+
+		.detail-info h2 {
+			font-size: 28px;
+			color: #333;
+			margin-bottom: 20px;
+		}
+
+		.detail-info h4 {
+			font-size: 18px;
+			color: #555;
+			margin-top: 20px;
+			border-bottom: 1px solid #ddd;
+			padding-bottom: 10px;
+		}
+
+		.detail-info p {
+			margin-bottom: 10px;
+			color: #666;
+		}
+
+		.form {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			margin-top: 20px;
+		}
+
+		.form button {
+			margin-right: 10px;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 20px;
+			cursor: pointer;
+			background-color: #007bff;
+			color: white;
+			font-size: 16px;
+			transition: background-color 0.3s;
+		}
+
+		.form button:hover {
+			background-color: #0056b3;
+		}
+
+		.audit-info {
+			flex: 1.3;
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			background-color: #fff;
+			margin-left: 20px;
+		}
+		.audit-info h4 {
+			font-size: 30px;
+			color: #555;
+			margin-top: 20px;
+			border-bottom: 1px solid #ddd;
+			padding-bottom: 10px;
+		}
+
+		.section-title {
+			font-size: 1.3em;
+			color: #555;
+			margin-bottom: 10px;
+			border-bottom: 1px solid #ddd;
+			padding-bottom: 5px;
+			margin-top: 15px;
+		}
+
+		.audit-info p {
+			line-height: 35px;
+		}
+
+		.bg-green {
+			font-size: 20px;
+			border-radius: 6px;
+			background-color: green;
+			color: white;
+			padding: 5px 10px;
+		}
+
+		.bg-red {
+			font-size: 20px;
+			border-radius: 6px;
+			background-color: red;
+			color: white;
+			padding: 5px 10px;
+		}
+
+		.status-submitted {
+			font-size: 20px;
+			border-radius: 6px;
+			background-color: #d68aec;
+			color: white;
+			padding: 5px 10px;
+		}
+
+		.status-audited {
+			font-size: 20px;
+			border-radius: 6px;
+			background-color: #1655de;
+			color: white;
+			padding: 5px 10px;
+		}
+
+		.audit-response {
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			padding: 20px;
+			background-color: #fff;
+			margin-top: 20px;
+			font-size: 18px;
+			height: 200px;
+		}
+
+		.modal {
+			display: block;
+			position: fixed;
+			z-index: 1;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 500px;
+			background-color: #fff;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+		}
+
+		.modal-content {
+			padding: 20px;
+		}
+
+		.modal-content h4 {
+			font-size: 24px;
+			margin-bottom: 20px;
+			color: #333;
+		}
+
+		.modal-content form {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+		}
+
+		.modal-content label {
+			font-size: 16px;
+			color: #333;
+		}
+
+		.modal-content select,
+		.modal-content textarea {
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			font-size: 16px;
+			width: 100%;
+			box-sizing: border-box;
+			transition: border-color 0.3s;
+		}
+
+		.modal-content select:focus,
+		.modal-content textarea:focus {
+			border-color: #007bff;
+			outline: none;
+		}
+
+		.modal-content textarea {
+			height: 100px;
+			resize: vertical;
+		}
+
+		.modal-content button {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			background-color: #007bff;
+			color: white;
+			font-size: 16px;
+			transition: background-color 0.3s;
+		}
+
+		.modal-content button[type="button"] {
+			background-color: #6c757d;
+		}
+
+		.modal-content button:hover {
+			background-color: #0056b3;
+		}
+
+		.modal-content button[type="button"]:hover {
+			background-color: #5a6268;
+		}
+
+		.shop-thumb {
+			height: 0;
+			padding-top: 100%;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.shop-thumb img {
+			width: 100%;
+			position: absolute;
+			top: 0;
+			object-fit: cover;
+			height: 100%;
+			left: 0;
+		}
+		.description img{
+			width: 100%;
+		}
+
+		.form .audit-button {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 20px;
+			cursor: pointer;
+			background-color: #28a745;
+			color: white;
+			font-size: 16px;
+			font-weight: bold;
+			transition: background-color 0.3s, transform 0.2s;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.form .audit-button:hover {
+			background-color: #218838;
+			transform: translateY(-2px);
+		}
+
+		.form .audit-button:active {
+			background-color: #1e7e34;
+			transform: translateY(0);
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!-- Page Header Section Start Here -->
+	<section class="page-header bg_img padding-tb">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="page-header-content-area">
+				<h4 class="ph-title">应聘信息详情</h4>
+				<ul class="agri-ul">
+					<li><a href="../../index.html">首页</a></li>
+					<li><a class="active">应聘信息详情</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!-- Page Header Section Ending Here -->
+	<!-- Shop Page Section start here -->
+	<section class="shop-single padding-tb">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-10 col-12 sticky-widget">
+					<div class="product-details">
+						<div class="detail-info">
+							<h2>{{detail.position}}</h2>
+							<h4>企业信息</h4>
+							<table>
+								<tr>
+									<td><span style="font-weight: bold;">企业编号：</span></td>
+									<td>{{detail.companynumber}}</td>
+								</tr>
+								<tr>
+									<td><span style="font-weight: bold;">企业名称：</span></td>
+									<td>{{detail.companyname}}</td>
+								</tr>
+								<tr>
+									<td><span style="font-weight: bold;">负责人：</span></td>
+									<td>{{detail.personincharge}}</td>
+								</tr>
+								<tr>
+									<td><span style="font-weight: bold;">联系电话：</span></td>
+									<td>{{detail.contactphone}}</td>
+								</tr>
+							</table>
+							<h4>应聘信息</h4>
+							<table>
+								<tr>
+									<td><span style="font-weight: bold;">用户名：</span></td>
+									<td>{{detail.username}}</td>
+								</tr>
+								<tr>
+									<td><span style="font-weight: bold;">姓名：</span></td>
+									<td>{{detail.fullname}}</td>
+								</tr>
+								<tr>
+									<td><span style="font-weight: bold;">电话：</span></td>
+									<td>{{detail.phone}}</td>
+								</tr>
+							</table>
+							<div class="form">
+								<button @click="download(`${detail.resume}`)">查看简历</button>
+								<button v-if="isCompanyInfoUser" @click="showAuditWindow = true" class="audit-button">审核</button>
+							</div>
+
+							<!-- 添加审核窗口 -->
+							<div id="auditModal" class="modal" v-if="showAuditWindow">
+								<div class="modal-content">
+									<h4>审核窗口</h4>
+									<form @submit.prevent="submitAudit">
+										<label>
+											审核结果：
+											<select v-model="auditResult">
+												<option value="" disabled selected>请选择是否通过</option>
+												<option value="是">通过</option>
+												<option value="否">未通过</option>
+											</select>
+										</label>
+										<label>
+											审核意见：
+											<textarea v-model="auditOpinion"></textarea>
+										</label>
+										<button type="submit">提交审核</button>
+										<button type="button" @click="showAuditWindow = false">关闭</button>
+									</form>
+								</div>
+							</div>
+
+						</div>
+						<div class="audit-info">
+							<h4 class="section-title" >审核状态</h4>
+							<p>审核状态：
+								<span v-if="detail.status === 'submitted'"
+									  :class="{ 'status-submitted': detail.status === 'submitted' }">未审核</span>
+								<span v-else-if="detail.status === 'audited'"
+									  :class="{ 'status-audited': detail.status === 'audited' }">已审核</span>
+							</p>
+							<p>通过状态：
+								<span v-if="detail.ifaudit === '是'"
+									  :class="{ 'bg-green': detail.ifaudit === '是' }">已通过</span>
+								<span v-else-if="detail.ifaudit === '否'"
+									  :class="{ 'bg-red': detail.ifaudit === '否' }">未通过</span>
+							</p>
+							<p>审核回应：</p>
+							<div class="audit-response">
+
+								<p>{{detail.auditresponse}}</p>
+							</div>
+						</div>
+					</div>
+					<div class="review">
+						<ul class="agri-ul review-nav">
+						</ul>
+						<div :class="['review-content', hsdetail?'description-show':'review-content-show']">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/fontawesome.min.js"></script>
+<script src="../../assets/js/relys/waypoints.min.js"></script>
+<script src="../../assets/js/relys/bootstrap.min.js"></script>
+<script src="../../assets/js/relys/wow.min.js"></script>
+<script src="../../assets/js/relys/jquery.countdown.min.js"></script>
+<script src="../../assets/js/relys/jquery.counterup.min.js"></script>
+<script src="../../assets/js/relys/isotope.pkgd.min.js"></script>
+<script src="../../assets/js/relys/lightcase.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<div id="script"></div>
+</body>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			id: "",
+			detail: null,
+			swiperList: [],
+			curImg: '',
+			buttons: [],
+			showAuditWindow: false, // 控制审核窗口的显示和隐藏
+			auditResult: '', // 存储审核结果
+			auditOpinion: '', // 存储审核意见
+			isCompanyInfoUser: false,
+		},
+		async created() {
+			var frontmenus = JSON.parse(localStorage.getItem("daohangmenus"))
+			if(typeof frontmenus == "object"){
+				frontmenus.forEach(item => {
+					if(item.menutable == "application"){
+						this.buttons = item.buttons
+					}
+				})
+			}
+			var id = getParam('id')
+			this.id = id
+
+
+			// 获取当前登录用户的角色
+			var role = localStorage.getItem("sessionTable");
+			// 检查角色是否为 "companyinfo"
+			this.isCompanyInfoUser = (role === "companyinfo");
+			//console.log(role);
+			//console.log(this.isCompanyInfoUser);
+
+			await this.getDetail(id)
+			var scripts = [
+				"../../assets/js/relys/swiper.min.js",
+				"../../assets/js/relys/functions.js"
+			]
+			setTimeout(() => {
+				scripts.forEach(ele => {
+					var new_element=document.createElement("script");
+					new_element.setAttribute("type","text/javascript");
+					new_element.setAttribute("src",ele);// 在这里引入了a.js
+					$('#script').append(new_element);
+				})
+			}, 500)
+		},
+		methods: {
+			//查看简历
+			download(file){
+				window.open(file)
+			},
+			//获取指定id的信息
+			getDetail(id){
+				return new Promise((resolve) => {
+					detailFun('application',id, (res) => {
+						this.detail = res.data
+						this.$nextTick(() => {
+							resolve(res)
+						})
+					})
+				})
+			},
+			//获取审核状态信息
+			submitAudit() {
+				// 验证审核结果和审核意见是否为空
+				if (!this.auditResult || this.auditResult === '请选择是否通过') {
+					alert('请选择审核结果');
+					return;
+				}
+				if (!this.auditOpinion) {
+					alert('请输入审核意见');
+					return;
+				}
+				var data = {
+					id: this.id,
+					ifaudit: this.auditResult,
+					auditresponse: this.auditOpinion
+				}
+				//调用审核接口function submitAudit(tableName, data, callback)
+				submitAudit('application', data, (res) => {
+					if(res.code == 0){
+						this.showAuditWindow = false
+						this.getDetail(this.id)
+					}
+				})
+			},
+		}
+	})
+</script>
+</html>

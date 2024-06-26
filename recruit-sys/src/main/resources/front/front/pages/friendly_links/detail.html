@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>详情</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="../../assets/images/x-icon/agricul.png">
+	<link rel="stylesheet" href="../../assets/css/relys/animate.css">
+	<link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+	<link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/style.css">
+	<style type="text/css">
+		.product-details .row {
+			display: flex;
+			align-items: center;
+		}
+		.product-details img {
+			width: 100%;
+			height: auto;
+			border-radius: 10px;
+			transition: transform 0.3s;
+		}
+		.post-content {
+			font-family: Arial, sans-serif; /* 设置字体 */
+			color: #333; /* 设置字体颜色 */
+			line-height: 1.6; /* 设置行高 */
+		}
+
+		.post-content h4 {
+			text-align: left;
+			color: #333;
+			font-size: 2.5em;
+			margin-bottom: 20px;
+		}
+		h3{
+			font-size:25px !important;
+			text-align: left;
+			color: #28c2e5aa;
+			font-size: 2.5em;
+			margin-bottom: 20px;
+		}
+		.product-details{
+			background-color:#49def51d !important; ;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!-- Page Header Section Start Here -->
+	<section class="page-header bg_img padding-tb">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="page-header-content-area">
+				<h4 class="ph-title">友情链接详情</h4>
+				<ul class="agri-ul">
+					<li><a href="../../index.html">首页</a></li>
+					<li><a href="../friendly_links/list.html" class="active" >友情链接详情</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!-- Page Header Section Ending Here -->
+	<!-- Shop Page Section start here -->
+	<section class="shop-single padding-tb">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-10 col-12 sticky-widget">
+					<div class="product-details">
+						<div class="row">
+							<!-- Image Section -->
+							<div class="col-md-6 col-12">
+								<div v-for="(item, i) in swiperList" :key="i">
+									<img :src="item" alt="shop-single">
+								</div>
+							</div>
+							<!-- Detail Section -->
+							<div class="col-md-6 col-12">
+								<div class="post-content" v-if="detail">
+									<div>
+										<h4 style="display: inline-block;">网站名称：</h4>
+										<h3 style="display: inline-block;">{{detail.webname}}</h3>
+									</div>
+									<div>
+										<h4 style="display: inline-block;">网址：</h4>
+										<h3 style="display: inline-block;">{{detail.website}}</h3>
+									</div>
+									<h4>简述：</h4>
+									<div v-html="detail.webinfo"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/fontawesome.min.js"></script>
+<script src="../../assets/js/relys/waypoints.min.js"></script>
+<script src="../../assets/js/relys/bootstrap.min.js"></script>
+<script src="../../assets/js/relys/wow.min.js"></script>
+<script src="../../assets/js/relys/jquery.countdown.min.js"></script>
+<script src="../../assets/js/relys/jquery.counterup.min.js"></script>
+<script src="../../assets/js/relys/isotope.pkgd.min.js"></script>
+<script src="../../assets/js/relys/lightcase.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<div id="script"></div>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			id: "",
+			buynum: 1,
+			detail: null,
+			swiperList: [],
+			curImg: '',
+			hsdetail: false,
+			buttons: [],
+		},
+		async created() {
+			var frontmenus = JSON.parse(localStorage.getItem("daohangmenus"));
+			if (typeof frontmenus == "object") {
+				frontmenus.forEach(item => {
+					if (item.menutable == "friendly_links") {
+						this.buttons = item.buttons;
+					}
+				});
+			}
+			var id = getParam('id');
+			this.id = id;
+			this.hsdetail = true;
+			await this.getDetail(id);
+			var scripts = [
+				"../../assets/js/relys/swiper.min.js",
+				"../../assets/js/relys/functions.js"
+			];
+			setTimeout(() => {
+				scripts.forEach(ele => {
+					var new_element = document.createElement("script");
+					new_element.setAttribute("type", "text/javascript");
+					new_element.setAttribute("src", ele);
+					$('#script').append(new_element);
+				});
+			}, 500);
+		},
+		methods: {
+			//获取id的详细信息
+			getDetail(id) {
+				return new Promise((resolve) => {
+					detailFun('friendly_links', id, (res) => {
+						this.detail = res.data;
+						this.$nextTick(() => {
+							this.swiperList = [];
+							var arr = this.detail.logo.split(',');
+							arr.forEach(item => {
+								this.swiperList.push(item);
+							});
+							this.curImg = this.swiperList[0];
+							resolve(res);
+						});
+					});
+				});
+			},
+		}
+	});
+</script>
+</body>
+</html>

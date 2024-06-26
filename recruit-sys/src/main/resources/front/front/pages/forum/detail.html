@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>帖子详情</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="../../assets/images/x-icon/agricul.png">
+	<link rel="stylesheet" href="../../assets/css/relys/animate.css">
+	<link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+	<link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/style.css">
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f5f5f5;
+			color: #333;
+		}
+
+
+		.blog-section {
+			padding: 60px 0;
+		}
+
+		.post-item-2 {
+			background: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+			overflow: hidden;
+			margin-bottom: 30px;
+		}
+
+		.post-inner {
+			padding: 20px;
+		}
+
+		.post-content h4 {
+			font-size: 28px;
+			font-weight: 500;
+			margin-bottom: 15px;
+		}
+
+		.post-content .description {
+			font-size: 16px;
+			line-height: 1.8;
+			margin-bottom: 15px;
+		}
+
+		.post-content .post-meta {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 14px;
+			color: #888;
+			margin-bottom: 15px;
+		}
+
+		.thumbs-up {
+			display: inline-block;
+			padding: 10px 20px;
+			background: #28a745;
+			color: #fff;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background 0.3s;
+		}
+
+		.thumbs-up:hover {
+			background: #218838;
+		}
+
+		.back-button {
+			position: absolute;
+			top: 0;
+			left: 15px;
+			padding: 5px 10px;
+			background-color: #007BFF;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+		.back-button:hover {
+			background-color: #0056b3;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!-- 论坛--留言板 -->
+	<section class="page-header bg_img padding-tb">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="page-header-content-area">
+				<h4 class="ph-title">帖子详情</h4>
+				<ul class="agri-ul">
+					<li><a href="../../index.html">首页</a></li>
+					<li><a class="active">帖子详情</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!-- Page Header Section Ending Here -->
+	<!-- Blog Section Start Here -->
+	<div class="blog-section blog-single padding-tb">
+		<div class="container">
+			<div class="section-wrapper">
+				<div class="row justify-content-center">
+					<div class="col-lg-9 col-12">
+						<article>
+							<div class="post-item-2">
+								<div class="post-inner">
+									<div class="post-content">
+										<h4>{{detail.title}}</h4>
+										<div class="post-meta">
+											<span>发表于: {{detail.addtime}}</span>
+										</div>
+										<div class="description" v-html="detail.content"></div>
+										<button class="back-button" @click="goBack">返回</button>
+									</div>
+									<span class="thumbs-up" @click="onThumbsUp(1)">点赞 : {{detail.thumbsupnum}}</span>
+								</div>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- newsletters section ending here -->
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/relys/vue.min.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			detail: {},
+			id: "",
+			content: ""
+		},
+		created() {
+			var id = getParam('id');
+			this.id = id;
+			this.getDetail(id);
+		},
+		methods: {
+			//获取id的详细信息
+			getDetail(id) {
+				return new Promise((resolve) => {
+					detailFun('forum', id, (res) => {
+						this.detail = res.data;
+						this.$nextTick(() => {
+							resolve(res);
+						});
+					});
+				});
+			},
+			//点击点赞按钮
+			onThumbsUp(type) {
+				thumbsUp("forum", this.detail.id, type, (res) => {
+					if (res && res.code == 0) {
+						if (type == 1) {
+							alert("点赞成功");
+							this.getDetail(this.id);
+						} else {
+							alert("踩成功");
+							this.getDetail(this.id);
+						}
+					}
+				});
+			},
+			//返回按钮
+			goBack() {
+				window.location.href = './list.html';
+			}
+		}
+	});
+</script>
+</body>
+</html>

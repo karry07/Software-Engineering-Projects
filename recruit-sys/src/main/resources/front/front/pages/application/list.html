@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>应聘信息列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="../../assetsimages/x-icon/agricul.png">
+    <link rel="stylesheet" href="../../assets/css/relys/animate.css">
+    <link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+    <link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/style.css">
+    <style type="text/css">
+        .img-box {
+            width: 100%;
+            height: 0;
+            padding-top: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            object-fit: cover;
+            height: 100%;
+        }
+
+        .product-item {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            cursor: pointer;
+            padding: 20px;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-content h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        .product-content h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-content p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .product-content .section-title {
+            font-size: 1.3em;
+            color: #555;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 15px;
+        }
+
+        .paginations {
+            margin-top: 20px;
+        }
+
+        .paginations ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .paginations ul li a {
+            color: #007bff;
+            padding: 10px 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .paginations ul li a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .bg-green {
+            background-color: green;
+            color: white;
+            border-radius: 6px;
+            padding: 2px 4px;
+        }
+
+        .bg-red {
+            background-color: red;
+            color: white;
+            border-radius: 6px;
+            padding: 2px 4px;
+        }
+
+        .status-submitted {
+            background-color: #d68aec;
+            color: white;
+            border-radius: 6px;
+            padding: 2px 4px;
+        }
+
+        .status-audited {
+            background-color: #1655de;
+            color: white;
+            border-radius: 6px;
+            padding: 2px 4px;
+        }
+
+        .widget-search {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+        }
+
+        .widget-search .widget-header {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 500;
+            color: #007bff;
+        }
+
+        .widget-search .search-wrapper {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            margin-bottom: 20px;
+        }
+
+        .widget-search .search-wrapper input {
+            flex: 1; /* Take remaining space */
+            padding: 10px 20px;
+            border: 2px solid #ffd8eb !important;
+            border-radius: 50px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1em;
+            max-width: calc(100% - 60px);
+        }
+
+        .widget-search .search-wrapper select {
+            flex: 1; /* Take remaining space */
+            padding: 10px 20px;
+            border: 2px solid #ffd8eb;
+            border-radius: 50px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1em;
+            max-width: calc(100% - 60px);
+        }
+
+        .widget-search .search-wrapper input:focus,
+        .widget-search .search-wrapper select:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        .widget-search .search-wrapper button {
+            border: none;
+            background: #007bff;
+            color: #3fd547;
+            border-radius: 50px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+            margin-left: -50px; /* Adjust to align with input/select */
+            margin-top: -3px;
+        }
+
+        .widget-search .search-wrapper button:hover {
+            background: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .widget-search .search-wrapper select {
+            appearance: none; /* Remove default arrow */
+            background: url('https://cdn-icons-png.flaticon.com/512/32/32195.png') no-repeat right 20px center;
+            background-size: 15px;
+            padding-right: 40px; /* Adjust padding for the arrow */
+            color: #495057; /* Match input text color */
+        }
+
+        .widget-search .search-wrapper select::-ms-expand {
+            display: none; /* Remove default arrow in IE/Edge */
+        }
+
+        /* Adjust input and select height for consistency */
+        .widget-search .search-wrapper input,
+        .widget-search .search-wrapper select {
+            height: 45px;
+            line-height: 1.5;
+        }
+
+        .widget-search .search-wrapper input::placeholder {
+            color: #6c757d;
+            opacity: 1;
+        }
+
+        .widget-search .search-wrapper select {
+            background-color: #ffffff; /* Match input background color */
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- Page Header Section Start Here -->
+    <section class="page-header bg_img padding-tb">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="page-header-content-area">
+                <h4 class="ph-title">应聘信息列表</h4>
+                <ul class="agri-ul">
+                    <li><a href="../../index.html">首页</a></li>
+                    <li><a class="active">应聘信息列表</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Page Header Section Ending Here -->
+    <!-- shop page Section Start Here -->
+    <div class="shop-page padding-tb">
+        <div class="container">
+            <div class="section-wrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <aside>
+                            <div class="widget widget-search">
+                                <div class="widget-header">
+                                    <h5 style="color: #7354f8;">一键搜索</h5>
+                                </div>
+                                <form v-if="isGeneralUser" @submit.prevent="searchcompanynameTap"
+                                      class="search-wrapper">
+                                    <input v-model="companyname" type="text" name="s" placeholder="  请输入企业名称">
+                                    <button type="submit"><i class="icofont-search-2"></i></button>
+                                </form>
+                                <form v-if="isCompanyInfoUser" @submit.prevent="searchGUusernameTap"
+                                      class="search-wrapper">
+                                    <input v-model="username" type="text" name="s" placeholder="  请输入用户名">
+                                    <button type="submit"><i class="icofont-search-2"></i></button>
+                                </form>
+                                <form @submit.prevent="searchstatusTap" class="search-wrapper">
+                                    <select v-model="status1">
+                                        <option value="" disabled selected>请选择审核状态</option>
+                                        <option value="submitted">未审核</option>
+                                        <option value="audited">已审核</option>
+                                    </select>
+                                    <button type="submit"><i class="icofont-search-2"></i></button>
+                                </form>
+                                <form @submit.prevent="searchifaduitTap" class="search-wrapper">
+                                    <select v-model="ifaudit">
+                                        <option value="" disabled selected>请选择通过状态</option>
+                                        <option value="是">已通过</option>
+                                        <option value="否">未通过</option>
+                                    </select>
+                                    <button type="submit"><i class="icofont-search-2"></i></button>
+                                </form>
+                            </div>
+
+                        </aside>
+                    </div>
+                    <div class="col-lg-12 col-12">
+                        <article>
+                            <div class="shop-product-wrap row"
+                                 style="justify-content: flex-start!important;">
+                                <div class="col-lg-4 col-md-6 col-12" v-for="(item, i) in list"
+                                     @click="onPageTap(`./detail.html?id=${item.id}`)">
+                                    <!-- Card for Applicants -->
+                                    <div v-if="isGeneralUser" class="product-item">
+                                        <div class="product-content">
+                                            <!-- Display application information with sections -->
+                                            <h2>{{ item.companyname }}</h2>
+                                            <div class="section">
+                                                <h4 class="section-title">企业信息</h4>
+                                                <p>联系电话：{{ item.contactphone }}</p>
+                                                <p>招聘岗位：{{ item.position }}</p>
+                                            </div>
+                                            <div class="section">
+                                                <h4 class="section-title">审核状态</h4>
+                                                <p>审核状态：
+                                                    <span v-if="item.status === 'submitted'"
+                                                          :class="{ 'status-submitted': item.status === 'submitted' }">未审核</span>
+                                                    <span v-else-if="item.status === 'audited'"
+                                                          :class="{ 'status-audited': item.status === 'audited' }">已审核</span>
+                                                </p>
+                                                <p>通过状态：
+                                                    <span v-if="item.ifaudit === '是'"
+                                                          :class="{ 'bg-green': item.ifaudit === '是' }">已通过</span>
+                                                    <span v-else-if="item.ifaudit === '否'"
+                                                          :class="{ 'bg-red': item.ifaudit === '否' }">未通过</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card for Companies -->
+                                    <div v-else-if="isCompanyInfoUser" class="product-item">
+                                        <div class="product-content">
+                                            <!-- Display application information with sections -->
+                                            <h2>{{ item.fullname }}</h2>
+
+                                            <div class="section">
+                                                <h4 class="section-title">应聘者信息</h4>
+                                                <p>用户名：{{ item.username }}</p>
+                                                <p>电话：{{ item.phone }}</p>
+                                            </div>
+
+                                            <div class="section">
+                                                <h4 class="section-title">岗位信息</h4>
+                                                <p>申请岗位：{{ item.position }}</p>
+                                                <p>企业名称：{{ item.companyname }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="paginations">
+                                <ul class="agri-ul justify-content-center" id="paginator">
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- shop page Section Ending Here -->
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/fontawesome.min.js"></script>
+<script src="../../assets/js/relys/bootstrap.min.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<script src="../../assets/js/relys/jq-paginator.min.js"></script>
+<div id="script"></div>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            group: false,
+            first: true,
+            list: [],
+            page: {
+                page: 1,
+                limit: 16,
+                total: 0
+            },
+            companyname: "",
+            username: "",
+            searchname: '',
+            searchval: '',
+            status1: '',
+            ifaudit: '',
+            isCompanyInfoUser: false,//是否是企业用户
+            isGeneralUser: false,//是否是求职者用户
+        },
+        methods: {
+            //查询公司名称
+            searchcompanynameTap() {
+                this.page.page = 1
+                this.searchname = "companyname"
+                this.searchval = this.companyname
+                this.getList(this.searchname, this.searchval)
+            },
+            //查询用户名
+            searchGUusernameTap() {
+                this.page.page = 1
+                this.searchname = "username"
+                this.searchval = this.username
+                this.getList(this.searchname, this.searchval)
+            },
+            //查询审核状态
+            searchstatusTap() {
+                this.page.page = 1
+                this.searchname = "status"
+                this.searchval = this.status1
+                this.getList(this.searchname, this.searchval)
+            },
+            //查询通过状态
+            searchifaduitTap() {
+                this.page.page = 1
+                this.searchname = "ifaudit"
+                this.searchval = this.ifaudit
+                this.getList(this.searchname, this.searchval)
+            },
+            //点击跳转
+            onPageTap(url) {
+                window.location.href = url;
+            },
+            //获取列表
+            getList(searchname, searchval) {
+                return new Promise((resolve) => {
+                    goodsList('application', this.page.page, this.page.limit, searchname, searchval, (res) => {
+                        if (res.code == 0) {
+                            this.list = res.data.list
+                            resolve(res.data)
+                        }
+                    })
+                })
+            },
+            //分页
+            pageFun(data) {
+                var that = this
+                $('#paginator').jqPaginator({
+                    totalPages: data.totalPage,
+                    visiblePages: 7,
+                    currentPage: that.page.page,
+                    prev: '<li class="d-none d-sm-block"><a href="javascript: pageFun()">&lt;</a></li>',
+                    next: '<li class="d-none d-sm-block"><a href="javascript: pageFun()">&gt;</a></li>',
+                    page: `<li class="d-none d-sm-block"><a href="javascript: pageFun()">{{page}}</a></li>`,
+                    onPageChange: function (num, type) {
+                        that.page.page = num
+                    }
+                });
+            }
+        },
+        async created() {
+            // 获取当前登录用户的角色
+            var role = localStorage.getItem("sessionTable");
+            // 检查角色是否为 "companyinfo"
+            this.isCompanyInfoUser = (role === "companyinfo");
+            // 检查角色是否为 "general"
+            this.isGeneralUser = (role === "generaluser");
+            // console.log("isCompanyInfoUser: " + this.isCompanyInfoUser);
+            // console.log("isGeneralUser: " + this.isGeneralUser);
+            setTimeout(() => {
+                var scripts = [
+                    '../../assets/js/relys/wow.min.js',
+                    '../../assets/js/relys/swiper.min.js',
+                    '../../assets/js/relys/jquery.countdown.min.js',
+                    '../../assets/js/relys/jquery.counterup.min.js',
+                    '../../assets/js/relys/isotope.pkgd.min.js',
+                    '../../assets/js/relys/lightcase.js',
+                    '../../assets/js/relys/functions.js',
+                ]
+                scripts.forEach(ele => {
+                    var new_element = document.createElement("script");
+                    new_element.setAttribute("type", "text/javascript");
+                    new_element.setAttribute("src", ele); // 在这里引入了a.js
+                    $('#script').append(new_element);
+                })
+            }, 500)
+            var search = getParam('search')
+            if (search) {
+                this.searchname = searchname
+                this.searchval = search
+            }
+            var res = await this.getList(this.searchname, this.searchval)
+            this.pageFun(res)
+            this.group = true
+        }
+    })
+    //点击跳转
+    function onPageTap(url) {
+        window.location.href = url;
+    }
+    //分页
+    function pageFun() {
+        app.getList(false, false)
+    }
+</script>
+</html>

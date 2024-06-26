@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.InterviewDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.InterviewEntity" id="interviewMap">
+        <result property="applicationid" column="applicationid"/>
+        <result property="interviewtime" column="interviewtime"/>
+        <result property="interviewer" column="interviewer"/>
+        <result property="location" column="location"/>
+        <result property="status" column="status"/>
+        <result property="feedback" column="feedback"/>
+    </resultMap>
+
+    <select id="selectListVO"
+        resultType="com.entity.vo.InterviewVO" >
+        SELECT * FROM interview interview
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+        resultType="com.entity.vo.InterviewVO" >
+        SELECT interview.* FROM interview interview
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectListView"
+        resultType="com.entity.view.InterviewView" >
+        SELECT interview.* FROM interview interview
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+        resultType="com.entity.view.InterviewView" >
+        SELECT * FROM interview interview
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+</mapper>

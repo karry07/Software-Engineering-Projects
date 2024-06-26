@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--留言板-->
+    <meta charset="utf-8">
+    <title>论坛</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/x-icon/agricul.png">
+    <link rel="stylesheet" href="../../assets/css/relys/animate.css">
+    <link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+    <link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+    <link rel="stylesheet" href="../../assets/css/relys/style.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .search-wrapper, .newsletter-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .search-wrapper input[type="text"], .newsletter-form input[type="text"], .newsletter-form textarea {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .search-wrapper button, .newsletter-form input[type="submit"] {
+            padding: 10px 20px;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-wrapper button:hover, .newsletter-form input[type="submit"]:hover {
+            background: #218838;
+        }
+
+        .post-btn {
+            display: block;
+            padding: 10px 20px;
+            background: #7dbafc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .post-btn:hover {
+            background: #0056b3;
+        }
+
+        .blog-section {
+            padding: 40px 0;
+        }
+
+        .post-item-2 {
+            background: linear-gradient(to bottom right, #ffffff, #3692ec); /* 背景颜色渐变 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+            border-radius: 10px; /* 圆角 */
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s; /* 添加盒子阴影的过渡效果 */
+            position: relative; /* 使背景图片定位有效 */
+            background-size: cover;
+            background-position: center;
+            color: #333; /* 确保文本颜色在背景上可读 */
+        }
+
+        .post-item-2:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8); /* 添加白色半透明遮罩层 */
+            border-radius: 10px; /* 圆角 */
+        }
+
+        .post-item-2:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 增强悬停时的阴影效果 */
+        }
+
+        .post-inner {
+            padding: 20px;
+            border-left: 5px solid #007bff; /* 左侧添加蓝色边框 */
+            position: relative; /* 使子元素定位有效 */
+            z-index: 1; /* 确保内容在遮罩层之上 */
+        }
+
+        .post-content h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .post-content h3:hover {
+            text-decoration: underline;
+        }
+
+        .post-content .description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .more-com {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .text-btn span {
+            color: #007bff;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .text-btn span:hover {
+            color: #0056b3;
+        }
+
+
+
+        .paginations ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .paginations ul li {
+            margin: 0 5px;
+        }
+
+        .paginations ul li a {
+            padding: 8px 12px;
+            background: #a4cbc1;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .paginations ul li a:hover {
+            background: #0056b3;
+        }
+
+        .post-section {
+            background-color: #f3f6f8;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        .post-title h4 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .post-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .textarea-field {
+            height: 400px;
+            width: 600px;
+            resize: none;
+        }
+
+        .submit-btn {
+            padding: 15px 30px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        .page-header-content-area h4 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .page-header-content-area ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .page-header-content-area ul li {
+            display: inline;
+            font-size: 18px;
+        }
+
+        .page-header-content-area ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .page-header-content-area ul li a.active {
+            font-weight: bold;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- Page Header Section Start Here -->
+    <section class="page-header bg_img padding-tb">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="page-header-content-area">
+                <h4 class="ph-title">论坛</h4>
+                <ul class="agri-ul">
+                    <li><a href="../../index.html">首页</a></li>
+                    <li><a class="active">论坛</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div class="search-wrapper">
+        <form @submit.prevent="searchtitleTap" v-if="!postshow">
+            <input v-model="title" type="text" name="s" placeholder="请输入帖子标题">
+            <button type="submit"><i class="fas fa-search"></i> 搜索</button>
+        </form>
+    </div>
+    <button class="post-btn" @click="postshow=!postshow">{{!postshow ? "发布新的帖子" : "返回"}}</button>
+    <!-- Page Header Section Ending Here -->
+    <!-- Blog Section Start Here -->
+    <div class="blog-section blog-single padding-tb" v-if="!postshow">
+        <div class="container">
+            <div class="section-wrapper">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12 col-12">
+                        <article>
+                            <div class="post-item-2" v-for="item in list">
+                                <div class="post-inner">
+                                    <div class="post-content">
+                                        <a @click.prevent="onpageTap(`./detail.html?id=${item.id}`)"><h3>
+                                            {{item.title}}</h3></a>
+                                        <p class="description" v-html="getFirstChars(item.content)"></p>
+                                        <div class="d-flex flex-wrap justify-content-between more-com">
+                                            <div class="text-btn">
+                                                <a @click.prevent="onpageTap(`./detail.html?id=${item.id}`)"><span>查看详情<i
+                                                        class="fa fa-angle-double-right"></i></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="paginations">
+                                <ul class="agri-ul d-flex flex-wrap justify-content-center" id="paginator">
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 发布帖子模块 -->
+    <div class="post-section" v-if="postshow">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10 col-12">
+                    <div class="post-title text-center">
+                        <h4>发布帖子</h4>
+                    </div>
+                    <div class="post-form">
+                        <form @submit.prevent="addFroum" class="d-flex flex-column">
+                            <input v-model="title" type="text" placeholder="帖子标题" class="input-field">
+                            <textarea v-model="content" placeholder="帖子内容" class="input-field textarea-field"></textarea>
+                            <input type="submit" value="提交" class="submit-btn">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter Section Ending Here -->
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/relys/vue.min.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script src="../../assets/js/relys/jq-paginator.min.js"></script>
+<script src="../../layui/layui.js"></script>
+<script src="../../assets/js/relys/storage.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            list: [],
+            title: "",
+            content: "",
+            postshow: false,
+            type: "",
+            searchname: "",
+            searchval: "",
+            page: {
+                page: 1,
+                limit: 16,
+                total: 0
+            },
+        },
+        async created() {
+            setTimeout(() => {
+                var scripts = [
+                    '../../assets/js/relys/wow.min.js',
+                    '../../assets/js/relys/swiper.min.js',
+                    '../../assets/js/relys/jquery.countdown.min.js',
+                    '../../assets/js/relys/jquery.counterup.min.js',
+                    '../../assets/js/relys/isotope.pkgd.min.js',
+                    '../../assets/js/relys/lightcase.js',
+                    '../../assets/js/relys/functions.js',
+                ]
+                scripts.forEach(ele => {
+                    var new_element = document.createElement("script");
+                    new_element.setAttribute("type", "text/javascript");
+                    new_element.setAttribute("src", ele); // 在这里引入了a.js
+                    $('#script').append(new_element);
+                })
+            }, 500)
+            var search = getParam('search')
+            if (search) {
+                this.searchname = searchname
+                this.searchval = search
+            }
+            var res = await this.getList(this.searchname, this.searchval)
+            this.pageFun(res)
+        },
+        methods: {
+            //点击跳转
+            onpageTap(url) {
+                window.location.href = url
+            },
+            //搜索帖子标题
+            searchtitleTap() {
+                this.page.page = 1
+                this.searchname = "title"
+                this.searchval = this.title
+                this.getList(this.searchname, this.searchval)
+            },
+            //获取内容的前一段
+            getFirstChars(content) {
+                return content.substr(0, 40);
+            },
+            //获取列表
+            getList(searchname, searchval) {
+                return new Promise((resolve) => {
+                    goodsList('forum', this.page.page, this.page.limit, searchname, searchval, (res) => {
+                        if (res.code == 0) {
+                            this.list = res.data.list
+                            resolve(res.data)
+                        }
+                    })
+                })
+            },
+            //添加帖子
+            addFroum() {
+                var usertable = localStorage.getItem("sessionTable")
+                session(`${usertable}`, (res) => {
+                    if (res && res.code == 0) {
+                        var user = res.data
+                        var data = {
+                            "title": this.title,
+                            "content": this.content,
+                            "thumbsupnum": 0,
+                            "userid": user.id
+                        }
+                        httpJson(`forum/save`, "POST", data, (data) => {
+                            if (data && data.code == 0) {
+                                alert("发布成功")
+                                this.postshow = false
+                                app.getList(false, false)
+                            } else {
+                                alert("发布失败")
+                            }
+                        })
+                    } else {
+                        alert("用户信息获取失败")
+                    }
+                })
+            },
+            //页面按钮
+            pageFun(data) {
+                var that = this
+                $('#paginator').jqPaginator({
+                    totalPages: data.totalPage,
+                    visiblePages: 7,
+                    currentPage: that.page.page,
+                    prev: '<li class="d-none d-sm-block"><a href="javascript: pageFun()">&lt;</a></li>',
+                    next: '<li class="d-none d-sm-block"><a href="javascript: pageFun()">&gt;</a></li>',
+                    page: `<li class="d-none d-sm-block"><a href="javascript: pageFun()">{{page}}</a></li>`,
+                    onPageChange: function (num, type) {
+                        that.page.page = num
+                    }
+                });
+            }
+        }
+    })
+    //分页
+    function pageFun() {
+        app.getList(false, false)
+    }
+
+</script>
+</body>
+</html>

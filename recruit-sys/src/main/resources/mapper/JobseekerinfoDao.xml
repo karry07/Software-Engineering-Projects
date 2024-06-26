@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.JobseekerinfoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.JobseekerinfoEntity" id="jobseekerinfoMap">
+        <result property="userName" column="userName"/>
+        <result property="fullName" column="fullName"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="photo" column="photo"/>
+        <result property="education" column="education"/>
+        <result property="jobcategory" column="jobcategory"/>
+        <result property="resume" column="resume"/>
+        <result property="workexperience" column="workexperience"/>
+        <result property="personalinfo" column="personalinfo"/>
+        <result property="thumbsUpNum" column="thumbsUpNum"/>
+        <result property="crazilyNum" column="crazilyNum"/>
+        <result property="birthday" column="birthday"/>
+        <result property="age" column="age"/>
+        <result property="birthplace" column="birthplace"/>
+        <result property="ethnicity" column="ethnicity"/>
+        <result property="height" column="height"/>
+        <result property="email" column="email"/>
+        <result property="politicalstatus" column="politicalstatus"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.JobseekerinfoVO" >
+		SELECT * FROM jobseekerinfo  jobseekerinfo
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.JobseekerinfoVO" >
+		SELECT  jobseekerinfo.* FROM jobseekerinfo  jobseekerinfo
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.JobseekerinfoView" >
+
+		SELECT  jobseekerinfo.* FROM jobseekerinfo  jobseekerinfo
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.JobseekerinfoView" >
+		SELECT * FROM jobseekerinfo  jobseekerinfo <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+</mapper>

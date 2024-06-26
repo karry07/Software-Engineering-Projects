@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>企业注册</title>
+	<link rel="stylesheet" href="../../assets/css/relys/login.css">
+</head>
+<body>
+<div class="container" id="app">
+	<div class="loginBox">
+		<h3>企业注册</h3>
+		<form id="loginForm">
+			<div class="input-wrapper">
+				<label>企业账号:</label>
+				<input v-model="companynumber" type="text" name="" placeholder="请输入账号">
+			</div>
+			<div class="input-wrapper">
+				<label>密码:</label>
+				<input v-model="password" type="password" name="" placeholder="密码">
+			</div>
+			<div class="input-wrapper">
+				<label>确认密码:</label>
+				<input v-model="confirmPassword" type="password" name="" placeholder="请再次输入密码">
+			</div>
+			<div class="input-wrapper">
+				<label>企业名称:</label>
+				<input v-model="companyname" type="text" name="" placeholder="请输入企业名称">
+			</div>
+			<div class="input-wrapper">
+				<label>负责人:</label>
+				<input v-model="personincharge" type="text" name="" placeholder="请输入负责人">
+			</div>
+			<div class="input-wrapper">
+				<label>联系电话:</label>
+				<input v-model="contactphone" type="text" name="" placeholder="请输入联系电话">
+			</div>
+			<div class="input-wrapper">
+				<label>企业邮箱:</label>
+				<input v-model="companyemail" type="text" name="" placeholder="请输入企业邮箱">
+			</div>
+		</form>
+		<a href="../login/login.html">已有账号？去登录</a>
+		<button type="button" @click="userRegister">注册</button>
+	</div>
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			companynumber: '',
+			password: '',
+			companyname: '',
+			personincharge: '',
+			contactphone: '',
+			companyemail: '',
+			confirmPassword: ''
+		},
+		methods: {
+			//点击注册按钮
+			userRegister(){
+				if (this.password !== this.confirmPassword) {
+					alert('两次输入的密码不一致，请重新输入');
+					return;
+				}
+				var data = {
+					"companynumber": this.companynumber,
+					"password": this.password,
+					"companyname": this.companyname,
+					"personincharge": this.personincharge,
+					"contactphone": this.contactphone,
+					"companyemail": this.companyemail,
+				}
+				register('companyinfo', data, function(res){
+					if(res.code==0){
+						alert('注册成功')
+						window.parent.location.href = '../login/login.html'
+					}
+				})
+			}
+		}
+	})
+</script>
+</body>
+</html>

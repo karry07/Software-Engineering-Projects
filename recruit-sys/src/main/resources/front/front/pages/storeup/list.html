@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>收藏列表</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="../../assetsimages/x-icon/agricul.png">
+	<link rel="stylesheet" href="../../assets/css/relys/animate.css">
+	<link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+	<link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/style.css">
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<style type="text/css">
+		.img-box {
+			width: 100%;
+			height: 0;
+			padding-top: 100%;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.img-box img {
+			width: 100%;
+			position: absolute;
+			top: 0;
+			object-fit: cover;
+			height: 100%;
+		}
+
+		.card {
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			margin-bottom: 20px;
+			transition: box-shadow 0.3s ease;
+			background-color: #fff;
+		}
+
+		.card:hover {
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
+
+		.toggle-layout {
+			margin: 20px;
+			text-align: right;
+		}
+
+		#rainBox {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			pointer-events: none;
+		}
+
+		.rain {
+			position: absolute;
+			width: 2px;
+			height: 50px;
+			background: linear-gradient(rgba(0, 0, 255, 0.2), rgba(0, 0, 255, 0.5)); /* 雨滴颜色 */
+		}
+
+		.search-self {
+			width: 100%;
+			text-align: center;
+			padding: 10px;
+		}
+		.search-self form {
+			display: flex;
+			justify-content: left;
+			align-items: center;
+			gap: 10px;
+		}
+		.search-self input[type="text"] {
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			font-size: 16px;
+			width: 20%;
+			box-sizing: border-box;
+			transition: border-color 0.3s;
+		}
+		.search-self input[type="text"]:focus {
+			border-color: #007bff;
+			outline: none;
+		}
+
+		.search-self button {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			background-color: #007bff;
+			color: #fff;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+		.search-self button:hover {
+			background-color: #0056b3;
+		}
+		.search-self h5 {
+			font-size: 20px;
+			margin-bottom: 10px;
+		}
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<div id="rainBox"></div>
+	<section class="page-header bg_img padding-tb">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="page-header-content-area">
+				<h4 class="ph-title">收藏表列表</h4>
+				<ul class="agri-ul">
+					<li><a href="../../index.html">首页</a></li>
+					<li><a class="active">收藏表列表</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<div class="shop-page padding-tb">
+		<div class="container">
+			<div class="section-wrapper">
+				<div class="search-self">
+					<form @submit.prevent="searchnameTap" class="search-wrapper" style="margin-bottom: 20px;">
+						<input v-model="name" type="text" name="s" placeholder="关键词搜索">
+						<button type="submit"><i class="icofont-search-2"></i></button>
+						<div class="toggle-layout">
+							<button @click="toggleLayout" class="btn btn-primary" >切换布局</button>
+						</div>
+					</form>
+				</div>
+				<div class="row justify-content-center">
+					<div :class="layoutMode === 2 ? 'col-lg-6 col-12' : 'col-lg-12 col-12'">
+						<article>
+							<div class="shop-product-wrap row justify-content-center" :style="{'justify-content': 'flex-start!important'}">
+								<div :class="layoutMode === 2 ? 'col-lg-6 col-md-6 col-12' : 'col-lg-3 col-md-3 col-6'" v-for="(item, i) in list" @click="onPageTap(`../${item.tablename}/detail.html?id=${item.refid}`)">
+									<div class="card product-item">
+										<div class="img-box">
+											<img :src="item.picture.split(',')[0]" alt="shop">
+										</div>
+										<div class="product-content">
+											<h6><a :href="`javascript: onPageTap('../${item.tablename}/detail.html?id=${item.refid}')`">{{item.name}}</a></h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="paginations">
+								<ul class="agri-ul d-flex flex-wrap justify-content-center" id="paginator">
+								</ul>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- shop page Section Ending Here -->
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/fontawesome.min.js"></script>
+<script src="../../assets/js/relys/bootstrap.min.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<script src="../../assets/js/relys/jq-paginator.min.js"></script>
+<div id="script"></div>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			layoutMode: 4,
+			list: [],
+			page: {
+				page: 1,
+				limit: 16,
+				total: 0
+			},
+			name: "",
+			searchname: '',
+			searchval: '',
+		},
+		methods: {
+			//搜索
+			searchnameTap() {
+				this.page.page = 1;
+				this.searchname = "name";
+				this.searchval = this.name;
+				this.getList(this.searchname, this.searchval);
+			},
+			//跳转详情页
+			onPageTap(url) {
+				window.location.href = url;
+			},
+			//获取收藏列表
+			getList(searchname, searchval) {
+				return new Promise((resolve) => {
+					goodsList('storeup', this.page.page, this.page.limit, searchname, searchval, (res) => {
+						if (res.code == 0) {
+							this.list = res.data.list;
+							resolve(res.data);
+						}
+					});
+				});
+			},
+			//分页
+			pageFun(data) {
+				var that = this;
+				$('#paginator').jqPaginator({
+					totalPages: data.totalPage,
+					visiblePages: 7,
+					currentPage: that.page.page,
+					prev: '<li class="d-none d-sm-block"><a href="javascript: pageFun()">&lt;</a></li>',
+					next: '<li class="d-none d-sm-block"><a href="javascript: pageFun()">&gt;</a></li>',
+					page: `<li class="d-none d-sm-block"><a href="javascript: pageFun()">{{page}}</a></li>`,
+					onPageChange: function(num, type) {
+						that.page.page = num;
+					}
+				});
+			},
+			//切换布局
+			toggleLayout() {
+				this.layoutMode = this.layoutMode === 2 ? 4 : 2;
+			},
+		},
+		async created() {
+			setTimeout(() => {
+				var scripts = [
+					'../../assets/js/relys/wow.min.js',
+					'../../assets/js/relys/swiper.min.js',
+					'../../assets/js/relys/jquery.countdown.min.js',
+					'../../assets/js/relys/jquery.counterup.min.js',
+					'../../assets/js/relys/isotope.pkgd.min.js',
+					'../../assets/js/relys/lightcase.js',
+					'../../assets/js/relys/functions.js',
+				];
+				scripts.forEach(ele => {
+					var new_element = document.createElement("script");
+					new_element.setAttribute("type", "text/javascript");
+					new_element.setAttribute("src", ele);
+					$('#script').append(new_element);
+				});
+			}, 500);
+			var search = getParam('search');
+			if (search) {
+				this.searchname = searchname;
+				this.searchval = search;
+			}
+			var res = await this.getList(this.searchname, this.searchval);
+			this.pageFun(res);
+		}
+	});
+
+	function onPageTap(url) {
+		window.location.href = url;
+	}
+
+	function pageFun() {
+		app.getList(false, false);
+	}
+</script>
+
+<script>
+	// 下雨特效背景
+	const box = document.getElementById('rainBox');
+	let boxHeight = box.clientHeight;
+	let boxWidth = box.clientWidth;
+	window.onresize = function() {
+		boxHeight = box.clientHeight;
+		boxWidth = box.clientWidth;
+	}
+	setInterval(() => {
+		const rain = document.createElement('div');
+		rain.classList.add('rain');
+		rain.style.top = 0;
+		rain.style.left = Math.random() * boxWidth + 'px';
+		rain.style.opacity = (Math.random() + 1) / 2;
+		box.appendChild(rain);
+		let race = 1;
+		const timer = setInterval(() => {
+			if (parseInt(rain.style.top) > boxHeight) {
+				clearInterval(timer);
+				box.removeChild(rain);
+			}
+			race++;
+			rain.style.top = parseInt(rain.style.top) + race + 'px';
+		}, 20);
+	}, 50);
+</script>
+</body>
+</html>

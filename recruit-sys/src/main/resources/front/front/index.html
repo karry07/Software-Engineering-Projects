@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>在线简历投递平台系统</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/relys/animate.css">
+    <link rel="stylesheet" href="assets/css/relys/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/relys/all.min.css">
+    <link rel="stylesheet" href="assets/css/relys/icofont.min.css">
+    <link rel="stylesheet" href="assets/css/relys/lightcase.css">
+    <link rel="stylesheet" href="assets/css/relys/swiper.min.css">
+    <link rel="stylesheet" href="assets/css/relys/style.css">
+    <style>
+        html, body {
+            height: 100%;
+            overflow: auto;
+            margin: 0;
+        }
+
+        .header-section .header-bottom {
+            background: linear-gradient(to right, #B2DFDB, #E0FFFF);
+            position: fixed;
+            top: 0;
+            left: 0; /* 确保页眉从左边开始 */
+            right: 0; /* 确保页眉延伸到右边 */
+            width: auto; /* 自动宽度，以确保不盖住滚动条 */
+            z-index: 1000; /* 确保页眉位于其他内容之上 */
+            border-top-left-radius: 15px; /* 设置左上角的圆弧半径，15px可以根据需要调整 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加一个阴影使效果更好 */
+        }
+
+        .header-section .active > a,
+        .header-section li > a:hover {
+            background-color: #86C8B8 !important; /* 使用 !important 确保样式应用 */
+            color: #ffffff !important; /* 根据需要调整文本颜色 */
+        }
+
+        .agri-ul {
+            padding-left: 80px !important;
+        }
+
+        .footer-section {
+            background-color: #B2DFDB; /* 背景颜色 */
+            padding: 20px 0; /* 内边距 */
+        }
+
+        .footer-section p {
+            margin: 0; /* 去除段落的默认外边距 */
+        }
+
+        /* 子菜单项的样式 */
+        .header-section .main-menu .agri-ul .menu-item-has-children > ul > li > a {
+            background-color: #B2DFDB; /* 子菜单项的背景颜色 */
+            color: #000000; /* 子菜单项的文本颜色 */
+        }
+
+        .agri-ul > li.menu-item-has-children:hover > a {
+            background-color: #86C8B8 !important; /* 使用 !important 确保样式应用 */
+            color: #ffffff !important; /* 根据需要调整文本颜色 */
+        }
+
+        .right-align {
+            position: absolute;
+            right: 50px;
+        }
+
+        .footer-section a {
+            color: #FFFFFF; /* 链接文字颜色 */
+            text-decoration: underline; /* 下划线 */
+        }
+
+        .footer-section a:hover {
+            text-decoration: none !important; /* 悬停时去掉下划线，使用 !important 确保优先级 */
+        }
+
+        .input-email {
+            width: 300px;
+            height: 40px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px; /* 圆角边框 */
+            font-size: 16px;
+            box-sizing: border-box; /* 确保内边距不会影响总高度 */
+        }
+
+        .subscribe-btn2 {
+            height: 40px; /* 使按钮高度与输入框匹配 */
+            font-size: 16px;
+            background-color: #80CBC4;
+            color: white;
+            border: none;
+            border-radius: 10px; /* 圆角边框 */
+            cursor: pointer;
+            padding: 0 20px; /* 确保按钮内边距一致 */
+            display: flex;
+            align-items: center; /* 垂直居中对齐 */
+            justify-content: center; /* 水平居中对齐 */
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+<!-- desktop menu start here -->
+
+<header class="header-section" id="app">
+    <div class="header-bottom">
+        <div class="header-area">
+            <div class="container">
+                <div class="primary-menu">
+                    <div class="main-area ">
+                        <div class="main-menu d-flex ">
+                            <div class="logo px-4"
+                                 style="font-weight: 600;font-size: 20px;display: flex;align-items: center;">
+                                在线简历投递平台
+                            </div>
+                            <ul class="agri-ul">
+                                <li :class="[item.url == url ? 'active' : '', item.children.length > 0 ? 'menu-item-has-children' : '']"
+                                    v-for="(item, i) in filteredNavs" :key="i">
+                                    <a :href="`javascript: onPageTap('${item.url}')`"
+                                       v-if="item.yanzheng && hstoken">{{item.name}}</a>
+                                    <a :href="`javascript: onPageTap('${item.url}')`"
+                                       v-if="!item.yanzheng && !item.window">{{item.name}}</a>
+                                    <a :href="`${item.url}`" target="#"
+                                       v-if="!item.yanzheng && item.window">{{item.name}}</a>
+                                    <!-- 显示子菜单 -->
+                                    <ul v-if="item.children.length > 0">
+                                        <li v-for="(ele, idx) in item.children" :key="idx">
+                                            <a :href="`javascript: onPageTap('${ele.url}')`">{{ele.name}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a v-if="!username" href="pages/login/login.html">登录</a>
+                                    <a v-else>登录用户：{{username}}</a>
+                                </li>
+                                <li>
+                                    <a href="pages/login/login.html">退出系统</a>
+                                </li>
+                                <li class="right-align">
+                                    <a href="http://localhost:8081">登录后台</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--下面是主要的主页部分home-->
+<iframe src="pages/home/home.html" frameborder="0" scrolling="no" id="main" width="100%" onload="test(this)"></iframe>
+<!--页尾部分-->
+<footer class="footer-section padding-tb pb-0" ky id="footer-app">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 col-12">
+                <div class="newsletter-form mt-4">
+                    <form @submit.prevent="messagewordTap" class="d-flex">
+                        <input v-model="messageword" type="text" placeholder="欢迎留言" class="input-email">
+                        <input type="submit" value="留言" class="subscribe-btn2 btn-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-top" style="display: flex; justify-content: center; width: 100%; background-color: #B2DFDB;">
+            <div class="row" style="width: 100%; display: flex; justify-content: center;">
+                <div class="footer-bottom" style="text-align: center; color: #FFFFFF; padding: 20px 0;">
+                    <p>&copy; 2024软件工程课设 <span style="font-weight: bold;">在线简历投递平台</span> 欢迎大家浏览 <a
+                            href="index.html" style="color: #FFFFFF; text-decoration: underline;">进入首页</a></p>
+                    <p>
+                        首页广告合作请联系邮箱：888888@vip.com
+                    </p>
+                    <p>
+                        <a href="pages/friendly_links/list.html"
+                           style="color: #FFFFFF; text-decoration: underline; margin-right: 10px;">友情链接</a>
+                        |
+                        <a href="pages/messages/list.html"
+                           style="color: #FFFFFF; text-decoration: underline; margin-left: 10px;">留言板</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/js/relys/jquery.js"></script>
+<script src="assets/js/relys/fontawesome.min.js"></script>
+<script src="assets/js/relys/waypoints.min.js"></script>
+<script src="assets/js/relys/bootstrap.min.js"></script>
+<script src="assets/js/relys/wow.min.js"></script>
+<script src="assets/js/relys/swiper.min.js"></script>
+<script src="assets/js/relys/jquery.countdown.min.js"></script>
+<script src="assets/js/relys/jquery.counterup.min.js"></script>
+<script src="assets/js/relys/isotope.pkgd.min.js"></script>
+<script src="assets/js/relys/lightcase.js"></script>
+<script src="assets/js/relys/functions.js"></script>
+<script src="assets/js/relys/vue.js"></script>
+<script src="assets/js/api/api.js"></script>
+<script src="assets/js/api/defaultuser.js"></script>
+<script src="assets/js/api/tplist.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            userType: '',
+            isHovering: false,
+            hstoken: false,
+            url: '',
+            //求职者页头
+            generalUserNavs: [
+                {
+                    name: '首页',
+                    url: './pages/home/home.html',
+                    children: [],
+                },
+                {
+                    name: '招聘信息',
+                    url: './pages/employment/list.html',
+                    children: [],
+                },
+                {
+                    name: '应聘信息',
+                    url: './pages/application/list.html',
+                    children: [],
+                },
+                {
+                    name: '求职者',
+                    url: './pages/jobseekerinfo/list.html',
+                    children: [],
+                },
+                {
+                    name: '论坛',
+                    url: './pages/forum/list.html',
+                    children: [],
+                },
+                {
+                    name: '个人中心',
+                    url: './pages/personal/personal.html',
+                    yanzheng: true,
+                    children: [
+                        {
+                            name: '我的应聘',
+                            url: './pages/application/list.html'
+                        },
+                        {
+                            name: '我的收藏',
+                            url: './pages/storeup/list.html'
+                        },
+                    ]
+                }
+            ],
+            //企业页头
+            companyInfoNavs: [
+                {
+                    name: '首页',
+                    url: './pages/home/home.html',
+                    children: [],
+                },
+                {
+                    name: '招聘信息',
+                    url: './pages/employment/list.html',
+                    children: [],
+                },
+                {
+                    name: '应聘信息',
+                    url: './pages/application/list.html',
+                    children: [],
+                },
+                {
+                    name: '求职者广场',
+                    url: './pages/jobseekerinfo/list.html',
+                    children: [],
+                },
+                {
+                    name: '论坛',
+                    url: './pages/forum/list.html',
+                    children: [],
+                },
+                {
+                    name: '企业中心',
+                    url: './pages/personal/personal.html',
+                    yanzheng: true,
+                    children: [
+                        {
+                            name: '我的应聘管理',
+                            url: './pages/application/list.html'
+                        },
+                    ]
+                }
+            ]
+        },
+        computed: {
+            //导入用户名，页头使用
+            username() {
+                return localStorage.getItem('adminName');
+            },
+            //通过登陆用户来决定页头菜单栏
+            filteredNavs() {
+                if (this.userType === 'companyinfo') {
+                    return this.companyInfoNavs;
+                } else {
+                    return this.generalUserNavs;
+                }
+            }
+        },
+        created() {
+            var role = localStorage.getItem("sessionTable");
+            if (role === "companyinfo") {
+                this.userType = 'companyinfo';
+            } else if (role === "generaluser") {
+                this.userType = 'generaluser';
+            }
+        },
+        methods: {
+            //跳转页面
+            onPageTap(url) {
+                $('#main').attr('src', url);
+            }
+        }
+    })
+    //页脚部分
+    var footer = new Vue({
+        el: '#footer-app',
+        data: {
+            messageword: ''
+        },
+        methods: {
+            //留言
+            messagewordTap() {
+                var sessiontable = localStorage.getItem("sessionTable")
+                if (!sessiontable) {
+                    alert("您还没登录，请先登录")
+                    return
+                }
+                session(sessiontable, (res) => {
+                    if (res.code == 0) {
+                        var obj = {
+                            "content": this.messageword,
+                            "userid": localStorage.getItem("userId")
+
+                        }
+                        httpJson("messages/add", "POST", obj, (res) => {
+                            if (res && res.code == 0) {
+                                alert("留言成功")
+                            }
+                            this.messageword = "";
+                        })
+                    }
+                })
+
+            },
+        }
+    })
+
+    //获取子页面的高度
+    function reinitIframe() {
+        var childPageH = $('#main').contents().find('#app').height();
+        $('#main').height(childPageH);
+    }
+
+    window.setInterval("reinitIframe()", 200);
+
+    function onPageTap(url) {
+        $('#main').attr('src', url);
+    }
+
+    function test(that) {
+        that.height = 0
+        app.url = $('#main').attr('src')
+        console.log(app.url)
+    }
+    setInterval(function () {
+        var token = localStorage.getItem('Token')
+        app.hstoken = token ? true : false
+    }, 1000)
+</script>
+</body>
+</html>

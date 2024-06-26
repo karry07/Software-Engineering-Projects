@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>新闻资讯详情</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="../../assets/images/x-icon/agricul.png">
+	<link rel="stylesheet" href="../../assets/css/relys/animate.css">
+	<link rel="stylesheet" href="../../assets/css/relys/bootstrap.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/all.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/icofont.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/lightcase.css">
+	<link rel="stylesheet" href="../../assets/css/relys/swiper.min.css">
+	<link rel="stylesheet" href="../../assets/css/relys/style.css">
+	<style>
+		.blog-section {
+			padding: 60px 0;
+		}
+		.post-item-2 {
+			background: #fff;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+			padding: 20px;
+			border-radius: 5px;
+		}
+		.post-thumb img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 5px;
+			display: block;
+			margin: 0 auto 20px;
+		}
+		.post-content {
+			padding: 20px;
+		}
+		.post-content h4 {
+			font-size: 28px;
+			margin-bottom: 20px;
+		}
+		.post-content div {
+			font-size: 16px;
+			line-height: 1.8;
+		}
+		.post-content p {
+			margin-bottom: 15px;
+		}
+		.post-content h5 {
+			font-size: 20px;
+			margin-top: 20px;
+			margin-bottom: 10px;
+		}
+		.post-content ul {
+			margin-left: 20px;
+			list-style-type: disc;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!-- Page Header Section Start Here -->
+	<section class="page-header bg_img padding-tb">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="page-header-content-area">
+				<h4 class="ph-title">新闻资讯详情</h4>
+				<ul class="agri-ul">
+					<li><a href="../../index.html">首页</a></li>
+					<li><a class="active">新闻资讯详情</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<div class="blog-section blog-single padding-tb">
+		<div class="container">
+			<div class="section-wrapper">
+				<div class="row justify-content-center">
+					<div class="col-lg-12 col-12">
+						<article>
+							<div class="post-item-2">
+								<div class="post-inner">
+<!--									新闻图片-->
+									<div class="post-thumb" v-if="detail.picture">
+										<img :src="detail.picture" alt="新闻图片" />
+									</div>
+<!--									新闻内容-->
+									<div class="post-content">
+										<h4>{{ detail.title }}</h4>
+										<div v-html="detail.content"></div>
+									</div>
+								</div>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/relys/vue.min.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/tplist.js"></script>
+<script src="../../assets/js/relys/utils.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			detail: {},
+			id: "",
+			tablename: ""
+		},
+		created() {
+			var id = getParam('id');
+			this.id = id;
+			var tablename = getParam('tablename');
+			this.tablename = tablename;
+			console.log(this.tablename);
+			tpDetail(this.tablename, id, (res) => {
+				this.detail = res.data;
+			});
+		}
+	});
+</script>
+</body>
+</html>

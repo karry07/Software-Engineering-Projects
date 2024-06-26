@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>求职者注册</title>
+	<link rel="stylesheet" href="../../assets/css/relys/login.css">
+</head>
+<body>
+<div class="container" id="app">
+	<div class="loginBox">
+		<h3>求职者注册</h3>
+		<form id="loginForm">
+			<div class="input-wrapper">
+				<label>账号:</label>
+				<input v-model="username" type="text" name="" placeholder="请输入注册账号">
+			</div>
+			<div class="input-wrapper">
+				<label>密码:</label>
+				<input v-model="password" type="password" name="" placeholder="请输入密码">
+			</div>
+			<div class="input-wrapper">
+				<label>确认密码:</label>
+				<input v-model="confirmPassword" type="password" name="" placeholder="请再次输入密码">
+			</div>
+			<div class="input-wrapper">
+				<label>姓名:</label>
+				<input v-model="fullname" type="text" name="" placeholder="请输入姓名">
+			</div>
+			<div class="input-wrapper">
+				<label>电话:</label>
+				<input v-model="phone" type="text" name="" placeholder="请输入电话">
+			</div>
+			<div class="input-wrapper">
+				<label>邮箱:</label>
+				<input v-model="email" type="text" name="" placeholder="请输入邮箱">
+			</div>
+		</form>
+		<a href="../login/login.html">已有账号？去登录</a>
+		<button type="button" @click="userRegister">注册</button>
+	</div>
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			username: '',
+			password: '',
+			fullname: '',
+			phone: '',
+			email: '',
+			confirmPassword: ''
+		},
+		methods: {
+			//点击注册按钮
+			userRegister(){
+				if (this.password !== this.confirmPassword) {
+					alert('两次输入的密码不一致，请重新输入');
+					return;
+				}
+				var data = {
+					"username": this.username,
+					"password": this.password,
+					"fullname": this.fullname,
+					"phone": this.phone,
+					"email": this.email,
+				}
+				register('generaluser', data, function(res){
+					if(res.code==0){
+						alert('注册成功')
+						window.parent.location.href = '../login/login.html'
+					}
+				})
+			}
+		}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>前台登录</title>
+    <link rel="stylesheet" href="../../assets/css/relys/login.css">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="loginBox">
+        <h3>在线简历投递平台登录</h3>
+        <form id="loginForm">
+            <div class="input-wrapper">
+                <label>登陆账号:</label>
+                <input v-model="username" type="text" name="" placeholder="请输入你的登陆账号">
+            </div>
+            <div class="input-wrapper">
+                <label>密码:</label>
+                <input v-model="password" type="password" name="" placeholder="请输入密码">
+            </div>
+            <div class="input-wrapper captcha" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px;">
+                <div style="display: flex; flex-direction: column; margin-right: 10px;">
+                    <label>验证码:</label>
+                    <input v-model="captchaInput" placeholder="请输入验证码" style="width: 150px;">
+                </div>
+                <canvas id="captcha" @click="generateCaptcha"></canvas>
+            </div>
+        </form>
+        <div style="display: flex;justify-content: space-between;" class="centered-links register-links">
+            <div style="display: flex;flex-flow: column;line-height: 25px;">
+                <a href="../generaluser/register.html">求职者注册</a>
+                <a href="../companyinfo/register.html">企业注册</a>
+            </div>
+            <p>没有账号？立即注册</p>
+        </div>
+        <div class="checkbox radio-selection" style="display: flex;margin-top: 20px;">
+            <div style="margin-right: 40px;display: flex;align-items: center;">
+                <input style="width: 15px;margin: 0;margin-right: 10px;" type="radio" value="generaluser" v-model="pick" name="userType">求职者
+            </div>
+            <div style="margin-right: 40px;display: flex;align-items: center;">
+                <input style="width: 15px;margin: 0;margin-right: 10px;" type="radio" value="companyinfo" v-model="pick" name="userType">企业
+            </div>
+        </div>
+        <button type="button" @click="userLogin">登录</button>
+    </div>
+</div>
+<script src="../../assets/js/relys/jquery.js"></script>
+<script src="../../assets/js/relys/vue.js"></script>
+<script src="../../assets/js/api/api.js"></script>
+<script src="../../assets/js/api/defaultuser.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            pick: "",
+            generaluser: "username",
+            generaluserzn: "用户",
+            companyinfo: "companynumber",
+            companyinfozn: "企业信息",
+            username: '',
+            password: '',
+            captchaInput: '',
+            captchaText: ''
+        },
+        mounted() {
+            this.generateCaptcha();
+        },
+        methods: {
+            //点击登录按钮
+            userLogin() {
+                if (!this.pick) {
+                    alert("请选择登录用户")
+                    return
+                }
+
+                if (this.captchaInput.toLowerCase() !== this.captchaText.toLowerCase()) {
+                    alert("验证码错误");
+                    this.generateCaptcha();
+                    return;
+                }
+
+                var data = {
+                    username: this.username,
+                    password: this.password,
+                    password: this.password,
+                }
+                data[`${this[this.pick]}`] = this.username
+                login(`${this.pick}`, data, (res) => {
+                    if (res.code == 0) {
+                        alert("登录成功")
+                        localStorage.setItem('Token', res.token)
+                        localStorage.setItem("role", this[`${this.pick}zn`])
+                        localStorage.setItem('sessionTable', this.pick)
+                        localStorage.setItem('adminName', this.username)
+                        session(this.pick, (res) => {
+                            if (res.code == 0) {
+                                var userid = res.data.id
+                                localStorage.setItem('userId', userid)
+                                window.parent.location.href = `../../index.html`
+                            }
+                        })
+                    }
+                })
+            },
+            //获取验证码
+            generateCaptcha() {
+                const canvas = document.getElementById('captcha');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 150;
+                canvas.height = 40;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let captchaText = '';
+                for (let i = 0; i < 6; i++) {
+                    const char = chars.charAt(Math.floor(Math.random() * chars.length));
+                    captchaText += char;
+                }
+                this.captchaText = captchaText;
+
+                // Draw the captcha text
+                ctx.font = '30px Arial';
+                ctx.fillStyle = '#000';
+                ctx.fillText(captchaText, 10, 30);
+
+                // Draw interference lines
+                for (let i = 0; i < 5; i++) {
+                    ctx.strokeStyle = this.getRandomColor();
+                    ctx.beginPath();
+                    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                    ctx.stroke();
+                }
+
+                // Draw interference dots
+                for (let i = 0; i < 30; i++) {
+                    ctx.fillStyle = this.getRandomColor();
+                    ctx.beginPath();
+                    ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, 1, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+            },
+            //获取随机颜色
+            getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
